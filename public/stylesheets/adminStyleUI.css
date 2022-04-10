@@ -1,0 +1,142 @@
+/* Forgot Password */
+
+.align-as-center{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.box-shadow-forgot{
+       /* padding: 20px; */
+    /* background-color: aqua; */
+    /* border: 1px solid #00000033; */
+    border-radius: 5px;
+    padding: 25px 30px 27px 30px;
+    box-shadow: 0px 0px 20px 4px #b1b0b075;
+    width: 500px;
+    
+}
+.top-section-forgot{
+        /* padding: 10px; */
+        padding: 20px 0px 10px 0px;
+        /* border: 1px solid black; */
+        border-bottom: 1px solid #00000020;
+}
+.bottom-section-First_heading{
+    padding-top: 1rem;
+}
+.btn-forgot{
+    border-radius: 7px;
+    color: white;
+}
+.bottom-section-Last_heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+.email-forgot{
+    border: 1px solid #0000003b;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    font-size: 15px;
+    height: 45px;
+    -webkit-rtl-ordering : none;
+}
+.bottom-section-rightBtn{
+    display: flex;
+    flex-direction: row;
+}
+.btn-back{
+    color: black;
+    background-color: #b0b5b973;
+    /* padding: 10px; */
+    margin: 0px 10px 0px 0px;
+    width: 90px;
+}
+.btn-back:hover{
+    background-color: #d1cdd5;
+    color: #000000a6;
+}
+.margin-top-14{
+    margin-top: 14px;
+}
+.font-size-12{
+    font-size: 12px;
+}
+/* Error page for forgot password */
+
+
+.error-div{
+    background-color: #ff2f001c;
+    /* height: 50px; */
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    border: 1px solid red;
+    margin-bottom: 12px;
+}
+.error-message{
+    font-weight: 600;
+    font-size: 14px;
+}
+.error-message-heading{
+    padding-top: 1rem;
+    margin-bottom: 5px;
+}
+.error-message-paragraph{
+    font-size: 13px;
+    padding-left: 0px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.success-forgot-password{
+    border: 1px green solid;
+    background-color: #28ff004f;
+    /* background-color: #ff2f001c; */
+    /* height: 50px; */
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    /* border: 1px solid red; */
+    margin-bottom: 12px;
+}
+
+/* cards */
+.cards-section{
+    display: flex;
+    flex-direction: row;
+    padding: 30px 0px 0px 40px;
+    justify-content: space-evenly;
+}
+.count-card{
+    padding: 15px;
+    width: 200px;
+    margin: 0px 16px;
+    /* background-color: deepskyblue; */
+    box-shadow: 0px 0px 11px 0px #858282ad;
+    color: #403d3d;
+    /* filter: drop-shadow(2px 85px 19px #403d3d);*/
+}
+#viewCat-tr{
+    color: white;
+    background-color: #2a2121c4;
+}
+#bg-color-DynamicDataView-SubCat{
+    background-color: #ede9e3;
+}
+.icon-for-panel-middle{
+    font-size: 20px;
+    color: black;
+}
+.thiOne-ForPanel-middle{
+    font-size: 18px;
+    padding-left: 10px;
+    color: black;
+}
+.panel-middle-subPart-Div
+.panel-middle-subPart-aTag{
+    text-decoration: none;
+}

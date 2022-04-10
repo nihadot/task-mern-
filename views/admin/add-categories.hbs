@@ -1,0 +1,35 @@
+<section style="margin-top: 5rem;">
+    <div class="container">
+        <div>
+            <form action='/admin/add-categories' method="post" enctype="multipart/form-data">
+                <div class="row  mt-4 ">
+                    <div class="col-12">
+                        <div class="text-center w-100" style="padding-top: 25px;">
+                            <h3 class="font-weight-bold">Add a new category</h3>
+                        </div>
+                        <div class="col-12">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" />
+                            {{#if Error}}
+                                <label style="color: red;padding: 10px 10px ;" for="">{{Error}}</label>
+                            {{/if}}
+                        </div>
+                        <div class="col-12">
+                            <label>Description</label>
+                            <input type="text" class="form-control" name="description" />
+                        </div>
+                        <div class="col-12">
+                            <label>Image</label>
+                            <img style="margin: 40px 20px;" src="" alt="" id="imgViewCat" width="65px" height="50px">
+                            <input type="file" class="form-control" id="image" name="image"
+                                onchange="viewImageCategory(event)" />
+                        </div>
+                        <div class="ml-3" style="margin-bottom: 3rem;">
+                            <button type="submit" class="btn btn-success mt-3">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
