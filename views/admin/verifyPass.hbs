@@ -1,24 +1,52 @@
-<section class="vh-100">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 text-black" style="display: flex!important; justify-content: center; align-content: center;">
-        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5" style="border: 1px solid #d9d9e1;">
-          <form style="width: 23rem;" action="/admin/verifyPass" method="post" autocomplete="on">
-            {{#if PassError}}
-            <div class="col-12" style="margin-bottom: 15px;">
-              <a class="error" style="color: red;">{{PassError}}</a>
-            </div>
-            {{/if}}
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example18">Password</label>
-              <input type="password" id="form2Example18" class="form-control form-control-lg" name="password" />
-            </div>
-            <div class="pt-1 mb-4">
-              <button class="btn btn-info btn-lg btn-block" type="submit">Login</button>
-            </div>
-          </form>
+<section>
+  <div class="container-fluid align-as-center">
+    <div class="box-shadow-forgot">
+      <div class="top-section-forgot">
+        <div>
+          <h4>Enter your password</h4>
         </div>
       </div>
+      <div></div>
+      <div>
+        <div class="bottom-section-First_heading">
+          {{#if Response}}
+          {{#if Response.status}}
+          <div class="success-forgot-password">
+            <div class="error-message">
+              <p class="error-message-heading">{{Response.message}}</p>
+            </div>
+          </div>
+          {{else}}
+          <div class="error-div">
+            <div class="error-message">
+              <p class="error-message-heading">{{Response.message}}</p>
+            </div>
+          </div>
+          {{/if}}
+          {{/if}}
+          <div>
+            <p>Please enter your current password to submit.</p>
+          </div>
+        </div>
+        <form action="/admin/verifyPass" method="post">
+          <div>
+            <div>
+              <input class="email-forgot" type="password" placeholder="Enter password" name="password" />
+            </div>
+          </div>
+          <div class="bottom-section-Last_heading">
+            <div></div>
+            <div class="bottom-section-rightBtn">
+              <div>
+                <a href="/admin/edit-profile" class="btn btn-back ">Back</a>
+              </div>
+              <div>
+                <button class="btn btn-success btn-forgot" type="submit">Search</button>
+              </div>
+            </div>
+        </form>
+      </div>
     </div>
+  </div>
   </div>
 </section>

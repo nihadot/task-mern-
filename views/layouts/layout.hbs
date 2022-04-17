@@ -37,7 +37,6 @@
 
     {{#if admin}}
     {{>admin-header}}
-    {{!-- {{{body}}} --}}
     {{/if}}
 
     {{#if user_header}}
@@ -52,16 +51,15 @@
 
 
 
+
     {{#if user_part}}
-    {{!-- {{> admin-static-head}} --}}
-    {{!-- {{user_part}} --}}
     {{{body}}}
     {{/if}}
 
-    
-    {{!-- {{>footer}} --}}
+    {{#if message}}
+    {{{body}}}
+    {{/if}}
 
-    
 
     <!-- Bootstrap CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

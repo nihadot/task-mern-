@@ -3,32 +3,46 @@ var collection = require('../config/collections')
 var objectId = require('mongodb').ObjectId
 var bcrypt = require("bcrypt");
 const { Db } = require('mongodb')
-const { response } = require('express')
+const { response } = require('express');
+const { reject } = require('bcrypt/promises');
 module.exports = {
 
     AddCategories: async(data,dash, callback) => {
         let result = await db.get().collection(collection.CATEGORY_COLLECTION).findOne({name:dash})
         if(result == null ){
+            let getData
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var dateTime = date + ' ' + time;
             let obj = {
                 name:dash,
-                description:data.description,
                 date:dateTime
             }
             db.get().collection(collection.CATEGORY_COLLECTION).insertOne(obj).then((data) => {
-                callback(data.insertedId)
+                 getData = 
+                {
+                    inserted_Id : data.insertedId,
+                    status:true
+                }
+                callback(getData)
             })
         }else{
-            callback(false)
+            getData = {
+                message:'This name is already available',
+                status: false
+            }
+            callback(getData)
         }
     },
     getAllCategories: () => {
         return new Promise(async (resolve, reject) => {
             let categories = await db.get().collection(collection.CATEGORY_COLLECTION).find().toArray()
-            resolve(categories)
+            obj = {
+                categories,
+                length : categories.length
+            }
+            resolve(obj)
         })
     },
     deleteCategory: (categoryID) => {
@@ -43,7 +57,11 @@ module.exports = {
     deleteSubCategory: (subcategoryID) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.SUBCATEGORY_COLLECTION).deleteOne({ _id: objectId(subcategoryID) }).then((response) => {
-                resolve(response)
+                if(response.deletedCount == 1){
+                    resolve({status:true})
+                }else{
+                    resolve({status:false})
+                }
             })
         })
     },
@@ -54,9 +72,17 @@ module.exports = {
             })
         })
     },
-    updateCategory: (CategoryID, CategoryDetails) => {
-        return new Promise((resolve, reject) => {
-
+    updateCategory: (CategoryID, CategoryDetails, name) => {
+        return new Promise(async(resolve, reject) => {
+            let obj
+            let result = await db.get().collection(collection.CATEGORY_COLLECTION).findOne({name:name})
+            if(result){
+                obj = {
+                    status:false,
+                    response:null
+                }
+                resolve(obj)
+            }
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -64,48 +90,78 @@ module.exports = {
 
             db.get().collection(collection.CATEGORY_COLLECTION).updateOne({ _id: objectId(CategoryID) }, {
                 $set: {
-                    name: CategoryDetails.name,
-                    description: CategoryDetails.description,
+                    name: name,
                     date:dateTime,
                 }
             }).then((response) => {
-                resolve(response)
+                obj = {
+                    status:true,
+                    response
+                }
+                resolve(obj)
             })
         })
     },
     getUserDetails: () => {
         return new Promise(async (resolve, reject) => {
-            let users = await db.get().collection(collection.USER_COLLECTION).find().toArray()
-            resolve(users)
+             db.get().collection(collection.USER_COLLECTION).find().toArray().then((response)=>{
+                 let obj = {
+                    length : response.length,
+                    users : response   
+                }
+                resolve(obj)
+             })
         })
     },
-    addSubcategories: (data, CatID) => {
-
+    addSubcategories: (data, CatID, name) => {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         var dateTime = date + ' ' + time;
-
         let obj = {
-            name: data.name,
+            name: name,
             link: data.link,
-            description: data.description,
             category: objectId(CatID),
             date:dateTime,
         }
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.SUBCATEGORY_COLLECTION).insertOne(obj).then((data) => {
-                resolve(data.insertedId)
-            })
+            let resData
+            let result = await db.get().collection(collection.SUBCATEGORY_COLLECTION).findOne({name:{'$in':[obj.name]},category:{'$in':[objectId(CatID)]}})
+            if(result === null)
+            {
+                db.get().collection(collection.SUBCATEGORY_COLLECTION).insertOne(obj).then((data) => {
+                    resData = {
+                        inserted_Id : data.insertedId,
+                        status: true
+                    }
+                    resolve(resData)
+                })
+            }else{
+                resData = {
+                    message : 'The name is already available',
+                    status: false
+                }
+                resolve(resData)
+            }
+          
         })
     },
     getSubCategoryDetails: (suCategoryID) => {
         return new Promise(async (resolve, reject) => {
             let response = await db.get().collection(collection.SUBCATEGORY_COLLECTION).find({ category: objectId(suCategoryID) }).toArray()
+            let obj
             if (response.length > 0) {
-                resolve(response)
+                obj = {
+                    response,
+                    status:true
+                }
+                resolve(obj)
             } else {
-                resolve(false)
+                obj = {
+                    message: 'subcategory is not available',
+                    status:false
+                }
+                resolve(obj)
             }
         })
     },
@@ -114,25 +170,26 @@ module.exports = {
             let result = await db.get().collection(collection.SUBCATEGORY_COLLECTION).findOne({ _id: objectId(id) })
             resolve(result)
         })
-
     },
-    updateSubcategory: (id, data) => {
-        return new Promise((resolve, reject) => {
-
+    updateSubcategory: (id, data,name,SubCat_ID) => {
+        return new Promise(async(resolve, reject) => {
+            let obj 
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var dateTime = date + ' ' + time;
-
             db.get().collection(collection.SUBCATEGORY_COLLECTION).updateOne({ _id: objectId(id) }, {
                 $set: {
-                    name: data.name,
-                    description: data.description,
+                    name: name,
                     link: data.link,
                     date:dateTime,
                 }
             }).then((response) => {
-                resolve(response)
+                obj = {
+                    status:true,
+                    response
+                }
+                resolve(obj)
             })
         })
     },
@@ -145,12 +202,11 @@ module.exports = {
     },
     updateProfile: (data, id) => {
         return new Promise(async (resolve, reject) => {
-
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var dateTime = date + ' ' + time;
-
+            let object
             if (data.password) {
                 let obj = {
                     name: data.name,
@@ -165,8 +221,15 @@ module.exports = {
                         password: obj.password,
                         name: obj.name
                     }
-                }).then((response) => {
-                    resolve(response)
+                }).then(async(response) => {
+                    let admin =await db.get().collection(collection.ADMIN_COLLECTION).findOne({_id:objectId(id)})
+                    admin._id = admin._id.toString()
+                    object = {
+                        admin,
+                        status:true,
+                        password:true
+                    }
+                    resolve(object)
                 })
             } else {
                 db.get().collection(collection.ADMIN_COLLECTION).updateOne({ _id: objectId(id) }, {
@@ -174,8 +237,15 @@ module.exports = {
                         email: data.email,
                         name: data.name
                     }
-                }).then((response) => {
-                    resolve(response)
+                }).then(async(response) => {
+                    let admin =await db.get().collection(collection.ADMIN_COLLECTION).findOne({_id:objectId(id)})
+                    admin._id = admin._id.toString()
+                    object = {
+                        admin,
+                        status:true,
+                        password:false
+                    }
+                    resolve(object)
                 })
             }
         })
@@ -193,12 +263,10 @@ module.exports = {
     },
     ForgotPassword: (data, email) => {
         return new Promise(async (resolve, reject) => {
-
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
             var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
             var dateTime = date + ' ' + time;
-
             let obj = {
                 password: data.password
             }
@@ -235,28 +303,12 @@ module.exports = {
             }
         });
     },
-
-    // doSignup: (userData) => {
-    //     return new Promise(async (resolve, reject) => {
-    //         let objData = {
-    //             email: userData.email,
-    //             password: userData.password
-    //         }
-    //         objData.password = await bcrypt.hash(objData.password, 10);
-    //         db.get().collection(collection.ADMIN_COLLECTION).insertOne(objData).then((data) => {
-    //         });
-    //     });
-    // },
     confirmPass: (EnterPassword,password)=>{
         return new Promise(async(resolve,reject)=>{
             let response = {};
-            console.log('hyyyyyyyyy',EnterPassword,password)
-            // let admin = await db.get().collection(collection.ADMIN_COLLECTION).findOne({ email: email });
-            // if (admin) {
                 bcrypt.compare(EnterPassword,password).then((status) => {
                     if (status) {
                         console.log("login successfully (line 29.54)");
-                        // response.admin = admin;
                         response.status = true;
                         resolve(response);
                     } else {
@@ -266,11 +318,30 @@ module.exports = {
                         resolve(response);
                     }
                 });
-            // } else {
-                // console.log("Email not fonud (line 39.49)");
-                // resolve({ status: false });
-            // }
         });
-        
-    }
+    },
+    getSubCatAddedOneResult:(id)=>{
+        return new Promise((resolve,reject)=>{
+            let result = db.get().collection(collection.SUBCATEGORY_COLLECTION).findOne({ _id: id });
+            resolve(result)
+        })
+    },
+    getSubcategories:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let result = await db.get().collection(collection.SUBCATEGORY_COLLECTION).find().toArray()
+            obj = {
+                length : result.length
+            }
+            resolve(obj)
+        })
+    },
+    getEmails:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let result =await db.get().collection(collection.USER_COLLECTION).find({},{email:1}).toArray()
+            obj = {
+                length: result.length
+            }
+            resolve(obj)
+        })
+    },
 }
