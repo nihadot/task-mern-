@@ -22,7 +22,7 @@
     <div class="row mt-4 mb-4 w-100 d-flex justify-content-center">
       <div class="w-75">
         <div class="text-center">
-          <table class="table mt-4 viewCat-tr" id="subcategory">
+          <table class="table mt-4 " id="subcategory">
             <thead>
               <tr>
                 <th scope="col">Logo</th>
@@ -34,19 +34,19 @@
             </thead>
             <tbody class="text-center">
               {{#each subCategories}}
-              <tr class="text-dark bg-color-DynamicDataView-SubCat">
+              <tr class="text-dark">
                 <td>
                   <img src="/sub-category-images/{{this._id}}.jpg" alt="" width="65px " height="50px">
                 </td>
-                <td>{{this.name}}</td>
-                <td>{{this.link}}</td>
+                <td class="vertical-center">{{this.name}}</td>
+                <td class="vertical-center">{{this.link}}</td>
                 <td>
                   <a class="btn text-dark whiteLight" href="/admin/edit-subcategory/{{this._id}}/{{this.name}}"><i
-                      class="fa-solid fa-pen font-size-18"></i></a>
+                      class="fa-solid fa-pen font-size-15"></i></a>
                 </td>
                 <td class="">
                   <a class="btn text-danger whiteLight" onclick="deleteSubCat('{{this._id}}',',{{this.name}}')"> <i
-                      class="fa-solid fa-trash-can font-size-18"></i></a>
+                      class="fa-solid fa-trash-can font-size-15"></i></a>
                 </td>
               </tr>
               {{/each}}

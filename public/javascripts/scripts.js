@@ -9,6 +9,18 @@ function viewImageSubCategory(event) {
   );
 }
 $(document).ready(function () {
+  $("#filter").keyup(function () {
+    var filter = $(this).val(),
+      count = 0;
+    $("#results div").each(function () {
+      if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+        $(this).hide();
+      } else {
+        $(this).show();
+        count++;
+      }
+    });
+  });
   $("#signupForm").validate({
     rules: {
       name: {
@@ -57,8 +69,6 @@ $(document).ready(function () {
       },
     },
   });
-
-
   $("#editProfile").validate({
     rules: {
       name: {
@@ -67,7 +77,7 @@ $(document).ready(function () {
       password: {
         // required: true,
         minlength: 6,
-        maxlength:16
+        maxlength: 16,
       },
 
       //   confirm_password: {
@@ -101,8 +111,24 @@ $(document).ready(function () {
       },
     },
   });
-
-
+  $("#search").keyup(function () {
+    search_table($(this).val());
+  });
+  function search_table(value) {
+    $("#employee_table tr").each(function () {
+      var found = "false";
+      $(this).each(function () {
+        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          found = "true";
+        }
+      });
+      if (found == "true") {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
   $("#LoginForm").validate({
     // in 'rules' user have to specify all the constraints for respective fields
     rules: {
@@ -126,29 +152,25 @@ $(document).ready(function () {
       },
     },
   });
-
-
-  $('#TableFoRfillter').DataTable();
+  $("#TableFoRfillter").DataTable();
   $("#allUsers").DataTable();
-  $("#subcategory").DataTable();  
+  $("#subcategory").DataTable();
   ReCount();
-
-
 });
-
 function ReCount() {
   $.ajax({
     url: "/admin/re_count",
     method: "post",
     success: (response) => {
+      if (response.admin) {
         $("#sub_cat_count").html(response.obj.subcategories.length);
         $("#user_count").html(response.obj.userCount.length);
         $("#cat_count").html(response.obj.categories.length);
         $("#email_count").html(response.obj.emailAll.length);
+      }
     },
   });
 }
-
 function deleteCat(id, name) {
   let cfm = confirm("Are you want to delete " + name);
   if (cfm) {
@@ -169,7 +191,6 @@ function deleteCat(id, name) {
   } else {
   }
 }
-
 function deleteSubCat(id, name) {
   let cfm = confirm("Are you want to delete " + name);
   if (cfm) {

@@ -1,83 +1,51 @@
-<header style="padding-bottom: 3.5rem;">
-  <nav class="navbar navbar-expand-md navbar-light bg-light" style=" position:  fixed;top:0px;width: 100%;z-index: 50;  box-shadow: 0px 0px 7px 1px #9d9d9d;">
+<header class="padding-bottom-3rem5">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light userHead-nav">
     <div class="nav-logo">
       <div>
-        <a style="padding-left: 19px;;" class="navbar-brand" href="/">AHLBYT</a>
+        <a class="navbar-brand padding-left-19px" href="/">AHLBYT</a>
       </div>
     </div>
-    <button style="border: none;" class="navbar-toggler nav-button" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <input id="filter"  class="form-control mr-sm-2 input-search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </nav>
+    <button class="border-none navbar-toggler nav-button" type="button" data-toggle="collapse"
+      data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="nav navbar-nav ml-auto pl-auto response-style-align" >
+      <ul class="nav navbar-nav ml-auto pl-auto response-style-align">
         <li class="nav-item ">
-          <a class="nav-link" style="font-size: 15px;" href="#">HOME <span class="sr-only">(current)</span></a>
+          <a class="nav-link font-size-15" href="#">HOME <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="font-size: 15px;" href="#">ABOUT US</a>
+          <a class="nav-link font-size-15" href="#">ABOUT US</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="font-size: 15px;" href="#">CONTACT ME</a>
+          <a class="nav-link font-size-15" href="#">CONTACT ME</a>
         </li>
         {{#if user}}
         <li class="nav-item">
           <div>
-              <a class="nav-link n" style="font-size: 15px;" href="#">{{user.name}}</a>
+            <a class="nav-link n font-size-15" href="#">{{user.name}}</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" style="font-size: 15px;" href="/logout">LOGOUT</a>
+        <li class="nav-item ">
+          <a class="nav-link font-size-15" href="/logout">LOGOUT</a>
         </li>
         {{else}}
-        <li class="button-for-responsive-align">
-          <div class="account-space">
-            <a style="" class="navbar-brand btn account-space-l" href="/login">Log In</a>
-            <a style="" class="navbar-brand btn btn-success account-space-r" href="/signup">Sign Up</a>
+        <div class="base">
+          <li class="button-for-responsive-align">
+          <div class="account-space base">
+            <a class="navbar-brand btn account-space-l" href="/login">Log In</a>
+            <a class="navbar-brand btn btn-success account-space-r" href="/signup">Sign Up</a>
           </div>
         </li>
+        </div>
         {{/if}}
       </ul>
     </div>
   </nav>
 </header>
-<style>
-  .nav-log {
-    display: flex;
-    width: 79%;
-    align-items: center;
-    justify-content: space-between;
-    align-content: center;
-  }
-
-  .account-space-l {
-    margin-left: 10px;
-    margin-right: 0px;
-    color: black;
-    font-size: 16px;
-    border: 1px solid #bbb5b5;
-    font-size: 14px;
-  }
-  .account-space-r {
-    color: white !important;
-    font-size: 16px;
-    margin-right: 0px;
-  }
-
-  .n {
-    border-radius: 7px;
-    border: 1px solid #d7cfcf;
-    margin: 0px 3px;
-    font-size: 15px;
-    color: #646161;
-
-  }
-  @media (max-width:767px) {
-    .response-style-align{
-          padding: 0px 12px;
-    margin: 10px 0px;
-    }
-    .button-for-responsive-align{
-          margin-top: 10px;
-    }
-  }
-</style>

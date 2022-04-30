@@ -43,18 +43,15 @@
   </div>
 </section>
 
-
-
-
 <section class="margin-top-2rem5">
-  <div class="container     margin-bottom-5rem">
+  <div class="container margin-bottom-5rem">
     <div class="d-flex justify-content-center">
     </div>
     {{#if Categories}}
     <table class="table mt-4" id="TableFoRfillter">
       <thead class="text-center">
-        <tr class="viewCat-tr">
-          <th scope="col">Logo</th>
+        <tr class=""> 
+          <th scope="col"> <span class="font-size-15px">#</span> Logo</th>
           <th scope="col">Name</th>
           <th></th>
           <th scope="col"></th>
@@ -62,31 +59,31 @@
           <th></th>
         </tr>
       </thead>
-      <tbody class="text-center">
-        {{!-- {{#each Categories}} --}}
-        <tr class="bg-color-DynamicDataView-SubCat" id="">
-          <td>
-            <img src="/category-images/this._id.jpg" alt="" width="65px" height="50px">
+      <tbody class="text-center" >
+        {{#each Categories}}
+        <tr class="trr">
+          <td class="tdd">
+            <img src="/category-images/{{this._id}}.jpg" alt="" width="65px" height="50px">
           </td>
-          <td class="word-break-break-all">this.name</td>
+          <td class="word-break-break-all vertical-center">{{this.name}}</td>
           <td>
             <a class="btn text-dark whiteLight" href="/admin/add-subcategories/{{this._id}}/{{this.name}}"><i
-                class="fa-solid fa-plus font-size-18"></i></a>
+                class="fa-solid fa-plus font-size-15"></i></a>
           </td>
           <td>
             <a class="btn text-dark whiteLight DynamicSubCatView" href="/admin/subcategoryVIew/{{this._id}}/{{this.name}}"><i
-                class="fa-solid fa-caret-right font-size-18"></i></a>
+                class="fa-solid fa-caret-right font-size-15"></i></a>
           </td>
           <td>
             <a class="btn text-dark whiteLight" href="/admin/edit-category/{{this._id}}/{{this.name}}"><i
-                class="fa-solid fa-pen font-size-18"></i></a>
+                class="fa-solid fa-pen font-size-15"></i></a>
           </td>
           <td class="">
             <a class="btn text-danger whiteLight " onclick="deleteCat('{{this._id}}',',{{this.name}}')"> <i
-                class="fa-solid fa-trash-can font-size-18"></i></a>
+                class="fa-solid fa-trash-can font-size-15"></i></a>
           </td>
         </tr>
-        {{!-- {{/each}} --}}
+        {{/each}}
       </tbody>
     </table>
     {{else}}

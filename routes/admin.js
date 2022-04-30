@@ -462,7 +462,7 @@ router.post('/re_count',async(req,res)=>{
       subcategories,
       emailAll     ,
     }
-    res.json({status:true,obj})
+    res.json({status:true,obj,admin:true})
   }else{
     let route = `/${variable.admin_router}/login`
     res.json({status:false,route})

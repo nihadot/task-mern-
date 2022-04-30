@@ -1,5 +1,6 @@
-<section>
-  <div class="subCat-heading">
+<section class="subCatHome">
+  <div class="container-fluid">
+    <div class="subCat-heading">
     {{#if name}}
     <div class="subCat-heading-parentDiv">
       <h3 class="subCat-heading-h3Tag">{{name}}</h3>
@@ -7,17 +8,18 @@
     </div>
     {{/if}}
   </div>
+  </div>
 </section>
 
 <section class="SubCat-section">
-  <div class="container-fluid subCat-container">
-    <div class="row subCat-row">
+    <div class="container-fluid subCat-container">
+    <div class="row subCat-row" id="results">
       {{#if SubCat}}
       {{#each SubCat}}
       <div class="transform subCat-contentDiv">
-        <div>
+        <p class="p-none">
           <img src="/sub-category-images/{{this._id}}.jpg" width="65px" height="50px" alt="">
-        </div>
+        </p>
         <div class="card-body padding-left-20">
           <a class="text-dark text-decoration-none" target="_blank" href="{{this.link}}">
             <h5 class="card-title font-weight-600">{{this.name}}</h5>

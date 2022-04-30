@@ -1,12 +1,12 @@
-#partials-for-admin-navTag{
-    position:  fixed ;
-    top:0px;
+#partials-for-admin-navTag {
+    position: fixed;
+    top: 0px;
     width: 100%;
-    z-index: 50;  
+    z-index: 50;
     box-shadow: 0px 0px 7px 1px #9d9d9d;
 }
 
-#admin-left-panel{
+#admin-left-panel {
     background-color: white;
     width: 265px;
     height: 543px;
@@ -15,70 +15,85 @@
     box-shadow: 2px 0px 5px 3px #d8dfd5;
     margin-top: 0rem;
 }
-.navbar-bg-color{
+
+.navbar-bg-color {
     background-color: #eef5f5;
 }
-#panel-sub-parts{
+
+#panel-sub-parts {
     height: 66px;
     border-bottom: 1px solid #dbd5d5;
     display: grid;
     align-items: center;
     justify-content: center;
 }
-#panel-sub-parts-aTag{
+
+#panel-sub-parts-aTag {
     color: black;
     font-size: 21px;
 }
-.contain-two-admin-part{
+
+.contain-two-admin-part {
     display: flex;
     flex-direction: row;
 }
-.panel-middle-subPart-Div{
+
+.panel-middle-subPart-Div {
     padding: 10px;
     border-bottom: 1px solid #efe1e1;
     width: 100%;
     height: 45px;
 }
-.panel-middle-subPart-Div:hover{
+
+.panel-middle-subPart-Div:hover {
     background-color: #5ca94340;
     color: black;
 }
-.panel-middle-subPart-aTag{
+
+.panel-middle-subPart-aTag {
     color: black;
     padding-left: 25px;
 }
-.panel-middle-subPart{
+
+.panel-middle-subPart {
     width: 100%;
     margin-top: 5rem;
 }
-.admin-panel-Dynamic{
+
+.admin-panel-Dynamic {
     height: 543px;
     overflow: scroll;
     border-bottom: 1px solid #b9b9b9;
 }
-.admin-panel-Dynamic::-webkit-scrollbar{
+
+.admin-panel-Dynamic::-webkit-scrollbar {
     display: none;
 }
-.dynamic-viewCat{
+
+.dynamic-viewCat {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border: 1px solid #d5d5d5;
     box-shadow: inset 0px 0px 10px 0px #00000054;
 }
-.thiOne-ForPanel-middle{
+
+.thiOne-ForPanel-middle {
     font-size: 18px;
     padding-left: 10px;
     color: #000000ad;
     font-size: 16px;
     font-weight: bold;
 }
-.icon-for-panel-middle{
+
+.icon-for-panel-middle {
     color: #000000ad;
 }
-.border-top-solid-whiteLight{
+
+.border-top-solid-whiteLight {
     border-top: 1px solid #efe1e1;
 }
-.icon-for-panel-middle-red{
+
+.icon-for-panel-middle-red {
     color: rgba(255, 0, 0, 0.753);
 }
