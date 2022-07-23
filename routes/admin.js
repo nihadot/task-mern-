@@ -127,7 +127,6 @@ router.post("/edit-category/:id", verifyLogin, (req, res) => {
   let id = req.params.id;
   let trimStr = CheckWhiteSpace.trim();
   let Name_For_RedDiR = req.session.Category_Name
-
   if(req.body.name === ''){
     req.session.Response_For_Edit_Category = 
     {
@@ -574,6 +573,9 @@ router.post("/forgot-password", (req, res) => {
             resForLogin,
             status: true,
           };
+
+          console.log(resForLogin)
+
           sess.ELIGIBLE_FOR_SENT_0TP_STATUS = true;
           res.redirect(`/${variable.admin_router}/verifyOtpForgetPass`);
         } catch (error) {

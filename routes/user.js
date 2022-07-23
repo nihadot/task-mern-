@@ -36,7 +36,7 @@ router.post("/signup", (req, res) => {
       req.session.userLoggedIn = true
       res.redirect('/')
     } else {
-      res.render("user/signup", { EmailError: 'Email is already registered' });
+      res.render("user/signup", { EmailError: 'Email is already registered',user_part:true });
     }
   })
 });

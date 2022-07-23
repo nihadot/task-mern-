@@ -9,6 +9,7 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var fileUpload = require('express-fileupload')
+var MongoStore = require('connect-mongo')
 const { handlebars } = require('hbs');
 var app = express();
 var db = require('./config/connection')
@@ -23,7 +24,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:'Key',cookie:{expires: 86400 ,maxAge: Date.now() + (30 * 864000 )  }})) 
+
+
+app.use(session({
+  secret:'Key',
+  cookie:{
+    maxAge: 1000 * 3600 *24 *30 *2  // 60 day ( milliseconds )
+  },
+  resave:true,
+  saveUninitialized:true,
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://localhost/database',
+    autoRemove: 'native', /*'Default' */
+    ttl: 3600 * 24 * 30 * 2 // = 60 days. Default  ( second  )
+  })
+}))
+
+// app.use(session({secret:'Key',cookie:{expires: 86400 ,maxAge: Date.now() + (30 * 864000 )  }})) 
 db.connect((err)=>{
   if(err)
   console.log('Connection Error'+err)
