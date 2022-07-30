@@ -80,4 +80,11 @@ router.get('/subcategories/:id/:name', (req, res) => {
   })
 })
 
+
+
+//----------GET-contact----------//
+router.get('/contact', (req, res) => {
+    res.render('user/contact', { user_header, name: req.session.name })
+})
+
 module.exports = router;
