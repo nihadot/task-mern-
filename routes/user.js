@@ -89,7 +89,7 @@ router.get('/contact', (req, res) => {
 
 
 //----------GET-contact----------//
-router.get('/about', (req, res) => {
+router.get('/aboutus', (req, res) => {
   res.render('user/about', { user_header, name: req.session.name })
 })
 
