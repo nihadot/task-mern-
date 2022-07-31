@@ -17,7 +17,7 @@ var user_header = true;
 //----------HOME-PAGE----------//
 router.get("/", async function (req, res, next) {
   userHelpers.AllCatagories().then((response) => {
-    res.render("user/home", { user_header, user: req.session.user, response });
+    res.render("user/home", { user_header, name:req.session.name, response });
   })
 });
 //----------CLOSE-PAGE----------//
@@ -88,7 +88,7 @@ router.get('/contact', (req, res) => {
 })
 
 
-//----------GET-contact----------//
+//----------GET-about----------//
 router.get('/aboutus', (req, res) => {
   res.render('user/about', { user_header, name: req.session.name })
 })
