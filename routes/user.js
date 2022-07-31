@@ -87,4 +87,10 @@ router.get('/contact', (req, res) => {
     res.render('user/contact', { user_header, name: req.session.name })
 })
 
+
+//----------GET-contact----------//
+router.get('/about', (req, res) => {
+  res.render('user/about', { user_header, name: req.session.name })
+})
+
 module.exports = router;

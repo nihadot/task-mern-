@@ -3,7 +3,7 @@
     <div class="row home-row" id="results">
       {{#if response}}
       {{#each response}}
-      <div class="hover">
+      <div class="hover" onclick="get('/subcategories/{{this._id}}/{{this.name}}')">
         <div class="image-parent">
           <p class="imag-style" style="homeImg">
             <img onchange="s()" class="home-image-tag" src="/category-images/{{this._id}}.jpg" width="65px " height="50px" alt="">
@@ -11,7 +11,7 @@
           <div class="home-contentTitle-parentDiv text-center w-100">
            <div>
               <a class="home-contentTitle-aTag text-dark text-decoration-none" href="/subcategories/{{this._id}}/{{this.name}}">
-                <span class="font-weight">{{this.name}}</span>
+                <span class="font-weight" style="font-family: 'Avenir', sans-serif ;">{{this.name}}</span>
               </a>
            </div>
           </div>
@@ -20,7 +20,7 @@
       {{/each}}
       {{else}}
       <div>
-        <p class="loading">Loading...</p>
+        <p class="loading" style="font-family: 'Avenir', sans-serif ;">Loading...</p>
       </div>
       {{/if}}
     </div>

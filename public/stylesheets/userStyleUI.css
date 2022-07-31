@@ -1,3 +1,10 @@
+@import url('http://fonts.cdnfonts.com/css/avenir');
+
+*{
+  font-family: 'Avenir', sans-serif ;
+}
+
+
 .main-sub1-div-style {
   border: 1px solid #d9d9e1 !important;
   border-radius: 15px !important;
@@ -127,11 +134,12 @@ div .loading {
 
 .hover {
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   display: flex;
   height: 60px;
   align-items: center;
   padding: 35px 0px;
+  cursor: pointer;
   border: 1px solid #dfdcdc;
   border-radius: 4px;
   justify-content: space-between;
@@ -165,7 +173,7 @@ div .loading {
   .SubCat-section .subCat-contentDiv {
     width: 100% !important;
     overflow-y: auto;
-    margin: 7px 10px;
+    margin: 4px 10px;
   }
 
   .subCat-contentDiv::-webkit-scrollbar {

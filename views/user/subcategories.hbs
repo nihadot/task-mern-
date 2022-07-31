@@ -3,7 +3,7 @@
     <div class="subCat-heading">
     {{#if name}}
     <div class="subCat-heading-parentDiv">
-      <h3 class="subCat-heading-h3Tag">{{name}}</h3>
+      <h3 class="subCat-heading-h3Tag" style="font-family: 'Avenir', sans-serif ;">{{name}}</h3>
       <div></div>
     </div>
     {{/if}}
@@ -22,13 +22,13 @@
         </p>
         <div class="card-body padding-left-20">
           <a class="text-dark text-decoration-none" target="_blank" href="{{this.link}}">
-            <h5 class="card-title font-weight-600">{{this.name}}</h5>
+            <h5 class="card-title font-weight-600" style="font-family: 'Avenir', sans-serif ;">{{this.name}}</h5>
           </a>
         </div>
       </div>
       {{/each}}
       {{else}}
-      <h4 class="padding-left-40">No data available!</h4>
+      <h4 style="font-family: 'Avenir', sans-serif ;" class="padding-left-40">No data available!</h4>
       {{/if}}
     </div>
   </div>

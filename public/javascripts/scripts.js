@@ -214,3 +214,8 @@ function deleteSubCat(id, name) {
     });
   }
 }
+
+const get =(route)=>{
+  console.log(route)
+  window.location.href=route
+}
