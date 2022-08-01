@@ -17,7 +17,7 @@ var user_header = true;
 //----------HOME-PAGE----------//
 router.get("/", async function (req, res, next) {
   userHelpers.AllCatagories().then((response) => {
-    res.render("user/home", { user_header, name:req.session.name, response });
+    res.render("user/home", { user_header, userData: req.session.user, response });
   })
 });
 //----------CLOSE-PAGE----------//
@@ -76,7 +76,7 @@ router.get('/subcategories/:id/:name', (req, res) => {
   let name = req.params.name
   req.session.name = name
   userHelpers.getSubCategory(req.params.id).then((SubCat) => {
-    res.render('user/subcategories', { user_header, SubCat, name: req.session.name })
+    res.render('user/subcategories', { user_header, SubCat, userData: req.session.user })
   })
 })
 
@@ -84,13 +84,13 @@ router.get('/subcategories/:id/:name', (req, res) => {
 
 //----------GET-contact----------//
 router.get('/contact', (req, res) => {
-    res.render('user/contact', { user_header, name: req.session.name })
+    res.render('user/contact', { user_header, userData: req.session.user })
 })
 
 
 //----------GET-about----------//
 router.get('/aboutus', (req, res) => {
-  res.render('user/about', { user_header, name: req.session.name })
+  res.render('user/about', { user_header, userData: req.session.user })
 })
 
 module.exports = router;
