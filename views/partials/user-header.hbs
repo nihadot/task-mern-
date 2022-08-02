@@ -1,8 +1,22 @@
 <header class="padding-bottom-3rem5">
   <nav class="navbar navbar-expand-lg navbar-light bg-light userHead-nav">
     <div class="nav-logo">
-      <div>
-        <a class="navbar-brand padding-left-19px" style="font-family: 'Avenir', sans-serif;" href="/">AHLBYT</a>
+      <div class="d-flex">
+        <div>
+          <a class="navbar-brand padding-left-19px" style="font-family: 'Avenir', sans-serif;" href="/">AHLBYT</a>
+        </div>
+        <div class=" hide-991 account-space base my-auto">
+        {{#if userData}}
+             <a class=" text-dark account-space-r" href="#">{{userData.name}}</a>
+             <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
+             <a class=" text-dark account-space-r" href="/logout">Log Out</a>
+        {{else}}
+             <a class=" text-dark account-space-r" href="/login">Log In</a>
+             <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
+             <a class=" text-dark account-space-r" href="/signup">Sign Up</a>
+        </div>
+        {{/if}}
+        </div>
       </div>
     </div>
     <nav class="navbar navbar-light bg-light">
@@ -11,21 +25,8 @@
         <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
       </form>
     </nav>
-    <button class="border-none navbar-toggler nav-button" type="button" data-toggle="collapse"
-      data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav ml-auto pl-auto response-style-align" style="font-family:'Avenir', sans-serif ;">
-        <li class="nav-item ">
-          <a class="nav-link font-size-15" href="/">HOME <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link font-size-15" href="/aboutus">ABOUT US</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link font-size-15" href="/contact">CONTACT US</a>
-        </li>
         {{#if userData}}
         <li class="nav-item">
           <div>
@@ -33,14 +34,15 @@
           </div>
         </li>
         <li class="nav-item ">
-          <a class="nav-link font-size-15" href="/logout">LOGOUT</a>
+          <a class="nav-link font-size-15" href="/logout">Log Out</a>
         </li>
         {{else}}
-        <div class="base">
+        <div class="base my-auto">
           <li class="button-for-responsive-align">
           <div class="account-space base">
-            <a class="navbar-brand btn account-space-l" href="/login">Log In</a>
-            <a class="navbar-brand btn btn-success account-space-r" href="/signup">Sign Up</a>
+            <a class=" text-dark account-space-r" href="/login">Log In</a>
+            <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
+            <a class=" text-dark account-space-r" href="/signup">Sign Up</a>
           </div>
         </li>
         </div>
@@ -49,3 +51,10 @@
     </div>
   </nav>
 </header>
+
+
+<div id="mySidenav" class="sidenav">
+  <a href="/" id="home">Home</a>
+  <a href="/aboutus" id="about">About</a>
+  <a href="/contact" id="contact">Contact</a>
+</div>

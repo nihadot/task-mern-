@@ -100,7 +100,7 @@ div .font-size-16 {
 
 div.home-row {
   margin: 20px 30px;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 div .loading {
@@ -110,8 +110,8 @@ div .loading {
 .font-weight {
   margin-top: unset;
   margin-bottom: unset;
-  font-size: 18px;
-  font-weight: 900;
+  font-size: 20px;
+  font-weight: 600!important;
 }
 
 .imag-style {
@@ -189,7 +189,7 @@ div .loading {
   }
 
   div .home-row {
-    margin: 4rem 10px;
+    margin: 5rem 10px;
   }
 
   .font-weight {
@@ -217,19 +217,19 @@ div .loading {
   }
 }
 
-@media (max-width:608px) {
+@media (max-width:681px) {
   #home-section {
     margin-top: 6rem;
   }
 
   .subCatHome {
-    margin-top: 8rem;
+    margin-top: 6rem;
   }
 }
 
 @media (max-width:375px) {
   #home-section {
-    margin-top: 8.5rem;
+    margin-top: 6.5rem;
   }
 }
 
@@ -409,7 +409,7 @@ input[type="checkbox"] {
 @media(max-width:500px){
   .subCat-contentDiv{
     min-width: unset !important;
-    width: 100px!important;
+    /* width: 100px!important; */
   }
 }
 
@@ -418,7 +418,7 @@ input[type="checkbox"] {
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .padding-left-40 {
@@ -443,17 +443,8 @@ input[type="checkbox"] {
   box-shadow: 0px 0px 7px 1px #9d9d9d;
 }
 
-.base .account-space-l {
-  margin-left: 10px;
-  margin-right: 0px;
-  color: black;
-  font-size: 16px;
-  border: 1px solid #bbb5b5;
-  font-size: 14px;
-}
-
 .base .account-space-r {
-  color: white !important;
+  /* color: white !important; */
   font-size: 16px;
   margin-right: 0px;
 }
@@ -744,3 +735,74 @@ h1, h2, h3, h4, h5, h6
     }
     
 }
+
+
+
+
+.sidenav{
+  position: fixed;
+  margin-top: 120px;
+  z-index: 49;
+}
+#mySidenav a {
+position: absolute;
+left: -90px;
+transition: 0.3s;
+padding: 15px;
+width: 120px;
+text-decoration: none;
+font-size: 20px;
+color: rgb(41, 34, 34);
+border-radius: 0 5px 5px 0;
+z-index: 49;
+font-family: 'Avenir', sans-serif ;
+}
+
+#mySidenav a:hover {
+left: 0;
+}
+
+#home {
+top: 20px;
+  background-color: #edf5f2;
+box-shadow: 0px 0px 20px 5px #201b1b36;
+}
+
+#about {
+top: 85px;
+ background-color: #edf5f2;
+box-shadow: 0px 0px 20px 5px #201b1b36;
+}
+
+#contact {
+top: 150px;
+background-color: #edf5f2;
+box-shadow: 0px 0px 20px 5px #201b1b36;
+}
+
+/* // show lgo right side text */
+
+ .hide-991{
+    display: none
+    ;
+  }
+@media (max-width:991px){
+  .hide-991{
+    display: block;
+  }
+
+}
+
+@media (max-width:681px){
+ .nav-logo{
+width: 93%;
+}
+.d-flex{
+    justify-content: space-between;
+}
+
+}
+
+
+
+
