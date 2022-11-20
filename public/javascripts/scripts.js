@@ -219,6 +219,6 @@ const get =(route)=>{
   console.log(route)
   window.location.href=route
 }
-const link=(url)=>{
+const link_url=(url)=>{
   window.location.href=url
 }
