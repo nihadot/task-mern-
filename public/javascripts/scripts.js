@@ -41,9 +41,9 @@ $(document).ready(function () {
         required: true,
         email: true,
       },
-      agree: {
-        required: true,
-      },
+      // agree: {
+      //   required: true,
+      // },
     },
     messages: {
       name: {
@@ -62,11 +62,11 @@ $(document).ready(function () {
       //       equalTo: "Please enter the same password as above."
       //   },
       email: {
-        required: "Enter your Email Address",
+        required: "Enter your Email",
       },
-      agree: {
-        required: "You must agree with our Terms and Conditions",
-      },
+      // agree: {
+      //   required: "You must agree with our Terms and Conditions",
+      // },
     },
   });
   $("#editProfile").validate({
@@ -148,7 +148,7 @@ $(document).ready(function () {
         maxlength: "Please enter no more than 16 characters",
       },
       email: {
-        required: "Enter your Email Address",
+        required: "Enter your E-mail",
       },
     },
   });

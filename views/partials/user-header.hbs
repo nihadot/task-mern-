@@ -1,30 +1,34 @@
 <header class="padding-bottom-3rem5">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light userHead-nav">
+  <nav class="navbar navbar-expand-lg navbar-light userHead-nav">
     <div class="nav-logo">
       <div class="d-flex">
         <div>
-          <a class="navbar-brand padding-left-19px" style="font-family: 'Avenir', sans-serif;" href="/">AHLBYT</a>
+          <img src="/public_asset/logo2.jpeg" alt="" style="width: 140px;height:62px;border-radious:4px">
+          {{!-- <a class="navbar-brand padding-left-19px" style="letter-spacing: 1px;font-style: 20px;" href="/">AHLBYT</a> --}}
         </div>
-        <div class=" hide-991 account-space base my-auto">
+        {{!-- mobile view --}}
+        <div class=" hide-991 account-space base my-auto "  style="" >
         {{#if userData}}
-             <a class=" text-dark account-space-r" href="#">{{userData.name}}</a>
-             <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
-             <a class=" text-dark account-space-r" href="/logout">Log Out</a>
+             <a class=" text-dark account-space-r" style="text-decoration: none;" href="#">{{userData.name}}</a>
+             <a class=" text-dark" style="vertical-align: middle;" href="">-</a>
+             <a class=" text-dark account-space-r" style="text-decoration: none;" href="/logout">Log Out</a>
         {{else}}
              <a class=" text-dark account-space-r" href="/login">Log In</a>
-             <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
+             <a class=" text-dark" style="vertical-align: middle;font-weight: 700;" href="">/</a>
              <a class=" text-dark account-space-r" href="/signup">Sign Up</a>
-        </div>
         {{/if}}
+        </div>
+        {{!-- mobile view --}}
         </div>
       </div>
     </div>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light">
       <form class="form-inline">
-        <input id="filter"  class="form-control mr-sm-2 input-search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <input id="filter" style=""  class="form-control mr-sm-2 input-search " type="search" placeholder="search..." aria-label="Search">
       </form>
     </nav>
+
+    {{!-- Desktop view --}}
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav ml-auto pl-auto response-style-align" style="font-family:'Avenir', sans-serif ;">
         {{#if userData}}
@@ -39,16 +43,17 @@
         {{else}}
         <div class="base my-auto">
           <li class="button-for-responsive-align">
-          <div class="account-space base">
-            <a class=" text-dark account-space-r" href="/login">Log In</a>
+          <div class="account-space base" id="authAreUi">
+            <a class=" text-dark account-space-r " href="/login">Log In</a>
             <a class=" text-dark" style="vertical-align: middle;" href="">/</a>
-            <a class=" text-dark account-space-r" href="/signup">Sign Up</a>
+            <a class=" text-dark account-space-r " href="/signup">Sign Up</a>
           </div>
         </li>
         </div>
         {{/if}}
       </ul>
     </div>
+        {{!--  --}}
   </nav>
 </header>
 
@@ -58,3 +63,11 @@
   <a href="/aboutus" id="about">About</a>
   <a href="/contact" id="contact">Contact</a>
 </div>
+
+
+
+
+
+
+
+

@@ -3,7 +3,7 @@
     <div class="subCat-heading">
     {{#if name}}
     <div class="subCat-heading-parentDiv">
-      <h3 class="subCat-heading-h3Tag" style="font-family: 'Avenir', sans-serif ;">{{name}}</h3>
+      <h3 class="subCat-heading-h3Tag" style="font-family: 'Avenir', sans-serif;">{{name}}</h3>
       <div></div>
     </div>
     {{/if}}
@@ -16,7 +16,8 @@
     <div class="row subCat-row" id="results">
       {{#if SubCat}}
       {{#each SubCat}}
-      <div class="transform subCat-contentDiv">
+      <div class="transform subCat-contentDiv" style="position: relative;">
+        <div class="home_indexing_container"><span class="count_increment"></span></div>
         <p class="p-none">
           <img src="/sub-category-images/{{this._id}}.jpg" width="65px" height="50px" alt="">
         </p>
@@ -28,8 +29,33 @@
       </div>
       {{/each}}
       {{else}}
-      <h4 style="font-family: 'Avenir', sans-serif ;" class="padding-left-40">No data available!</h4>
+      <h4 style="font-family: 'Avenir', sans-serif ;" class="padding-left-40">UPDATING !!!</h4>
       {{/if}}
     </div>
   </div>
 </section>
+
+<button onclick="topFunction()" id="home_btn" title="Go to top"><i class="fa-solid fa-house"></i></button>
+
+<script>
+   // Get the button
+let mybutton = document.getElementById("home_btn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>

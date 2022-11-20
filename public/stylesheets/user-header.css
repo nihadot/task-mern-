@@ -1,0 +1,66 @@
+.navbar .form-inline .input-search {
+  width: 20rem;
+  height: 40px;
+}
+
+
+@media (max-width: 500px) {
+
+  .navbar .form-inline .input-search {
+    width: 19rem;
+  }
+
+}
+
+.navbar .form-inline .form-control:focus,
+.navbar .form-inline .form-control:hover {
+  box-shadow: 0px 0px 21px 2px #dbdbdb;
+}
+
+.navbar .form-inline .form-control {
+
+  border: none;
+  border-bottom: 1px solid #f5dddd;
+  border-radius: 40px;
+  /* margin-left: 79px; */
+  padding-left: 23px;
+
+
+}
+
+
+/* // show lgo right side text */
+
+.d-flex .hide-991 {
+  display: none;
+}
+
+@media (max-width:991px) {
+  .d-flex .hide-991 {
+    display: block;
+  }
+
+}
+
+.base .account-space-r {
+  /* color: white !important; */
+  font-size: 16px;
+  text-decoration: none;
+  margin-right: 0px;
+}
+
+
+.padding-bottom-3rem5 .userHead-nav {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  /* margin: 5px; */
+  /* border-radius: 11px; */
+  z-index: 50;
+  background-color: #6ae2f145;
+}
+
+a.text-dark:focus, a.text-dark:hover {
+  /* color: #66727a!important; */
+  vertical-align: text-top;
+}
