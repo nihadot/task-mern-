@@ -31,9 +31,15 @@
     width: calc((100% - 60px) / 3);
     height: 100px;
     border: solid 1px #e8e8e8;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    /* box-shadow: 0px 1px 5px rgba(0,0,0,0.1); */
+    box-shadow: -10px -10px 30px -14px #ecf1f0, 10px 6px 20px 0px #8cdfdc;
     padding-left: 32px;
     padding-right: 15px;
+}
+.contact_info_item_inner_a{
+    text-decoration: none;
+    color: rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 .contact_info_image
 {

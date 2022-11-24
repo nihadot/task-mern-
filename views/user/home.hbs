@@ -3,8 +3,8 @@
     <div class="row home-row" id="results">
       {{#if response}}
       {{#each response}}
-      <div class="hover" style="background-color: white;position: relative;" onclick="get('/subcategories/{{this._id}}/{{this.name}}')">
-      <div class="home_indexing_container"><span class="count_increment"></span></div>
+      <div class="hover" style="position: relative;" onclick="get('/subcategories/{{this._id}}/{{this.name}}')">
+      {{!-- <div class="home_indexing_container"><span class="count_increment"></span></div> --}}
         <div class="image-parent">
           <p class="imag-style" style="homeImg">
             <img onchange="s()" class="home-image-tag" src="/category-images/{{this._id}}.jpg" width="65px " height="50px" alt="">
