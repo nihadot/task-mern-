@@ -64,3 +64,17 @@ a.text-dark:focus, a.text-dark:hover {
   /* color: #66727a!important; */
   vertical-align: text-top;
 }
+
+.nav-logo .d-flex .logo-tag{
+  letter-spacing: 1px;
+  /* background-color: #e9fffe;; */
+  padding: 10px;
+  font-style: 20px;
+  font-weight: 600;
+  /* box-shadow: -10px -10px 30px -14px #ecf1f0, 10px 6px 20px 0px #98dbd8; */
+}
+.d-flex .logo-subname{
+  font-weight: 400;
+  font-size: 17px;
+
+}
