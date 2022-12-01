@@ -3,8 +3,6 @@
 
 
 
-
-
 /*  */
  @font-face {
     font-family: "HelveticaNeue";
@@ -569,7 +567,8 @@ transition: 0.3s;
 padding: 15px;
 width: 120px;
 text-decoration: none;
-font-size: 20px;
+font-size: 15px;
+letter-spacing: 1px;
 color: rgb(41, 34, 34);
 border-radius: 0 5px 5px 0;
 z-index: 49;
@@ -580,27 +579,32 @@ font-family: 'Avenir', sans-serif ;
 left: 0;
 }
 
-#home {
+#bodyLeftBtn-Home {
 top: 20px;
   background-color: #edf5f2;
-box-shadow: 0px 0px 20px 5px #201b1b36;
+/* box-shadow: 0px 0px 20px 5px #201b1b36; */
+box-shadow: -10px -10px 30px -14px #ecf1f0, 10px 6px 20px 0px #8cdfdc;
 }
 
-#about {
+#bodyLeftBtn-about {
 top: 85px;
  background-color: #edf5f2;
-box-shadow: 0px 0px 20px 5px #201b1b36;
+box-shadow: -10px -10px 30px -14px #ecf1f0, 10px 6px 20px 0px #8cdfdc;
 }
 
-#contact {
+#bodyLeftBtn-contact {
 top: 150px;
 background-color: #edf5f2;
-box-shadow: 0px 0px 20px 5px #201b1b36;
+box-shadow: -10px -10px 30px -14px #ecf1f0, 10px 6px 20px 0px #8cdfdc;
 }
+
 
 
 
 @media (max-width:681px){
+  #bodyLeftBtn-contact,#bodyLeftBtn-Home,#bodyLeftBtn-about{
+    box-shadow: -10px -10px 30px -14px #ecf1f0, 5px 5px 10px 0px #7fd3d0;
+  }
  .nav-logo{
 width: 93%;
 }

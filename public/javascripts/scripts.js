@@ -222,3 +222,23 @@ const get =(route)=>{
 const link_url=(url)=>{
   window.location.href=url
 }
+
+
+
+function myFunction(x) {
+  if (x.matches) { // If media query matches
+    
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 0) {
+        $('.search-scroll-hide').fadeOut();
+      } else {
+        $('.search-scroll-hide').fadeIn();
+      }
+    });
+
+  }
+}
+
+var x = window.matchMedia("(max-width: 500px)")
+myFunction(x) // Call listener function at run time
+x.addListener(myFunction) // Attach listener function on state changes

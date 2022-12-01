@@ -41,18 +41,26 @@ background-color: #6ae2f145 !important;
 
 #home_btn {
   position: fixed;
-    bottom: 10px;
-    right: 10px;
+    background-color: #f5f6f8;
+    cursor: pointer;
+    outline: none;
+
+
+    /* position: fixed; */
+    bottom: 15px;
+    right: 15px;
     border: none;
     background-color: #f5f6f8;
     border-radius: 100%;
-    font-size: 16px;
-    padding: 13px;
-    color: #07a71b;
-    box-shadow: -10px -10px 30px 0px #d1d9e6, 1px 1px 2px 0px;
-    cursor: pointer;
-    outline: none;
+    font-size: 17px;
+    padding: 15px 20px 16px 20px;
+    box-shadow: -10px -10px 30px -14px #798985, 10px 6px 20px 0px #909f9d;
+    color: #17db27;
+  
+
+
+
 }
 #home_btn:active{
-  box-shadow: -1px -1px 10px 0px #3ba12d;
+  /* box-shadow: -10px -10px 30px -14px #86a19b, 10px 6px 20px 0px #a9bdbc; */
 }
