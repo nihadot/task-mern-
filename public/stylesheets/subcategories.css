@@ -23,3 +23,14 @@
     width: 100%;
   }
 }
+
+
+@media (min-width:680px){
+  #menuBar{
+    /* background-color: red; */
+    margin-top: 2.5rem;
+  }
+  .subcatSec{
+    margin-top: 3rem;
+  }
+}

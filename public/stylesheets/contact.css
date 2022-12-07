@@ -219,8 +219,16 @@
     
     .contact_info
     {
-        margin-top: 5rem;
+        margin-top: 1rem;
     }
     
 }
+
+@media (min-width:680px){
+    #menu-sectionAbout{
+      /* background-color: red; */
+      margin-top: 0rem;
+    }
+  }
+
 
