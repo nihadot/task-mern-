@@ -22,16 +22,10 @@
 
 
 
-
-body{
-background-color: #6ae2f145 !important; 
-  counter-reset: my-sec-counter;
-}
-
-.count_increment::before {
+/* .count_increment::before {
   counter-increment: my-sec-counter;
   content: counter(my-sec-counter) ;
-}
+} */
 
 
 #home_btn {
@@ -87,4 +81,8 @@ background-color: #6ae2f145 !important;
 .menu-tab a:hover {
   color: #141313e8;
   /* text-decoration: underline; */
+}
+
+.home-section .container .home-contentTitle-aTag #f{
+  font-family: Poppins,'sans-serif';
 }

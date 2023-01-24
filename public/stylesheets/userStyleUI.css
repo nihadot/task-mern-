@@ -1,3 +1,11 @@
+html body{
+  /* background-color: #6ae2f145 !important; */
+  background-color: #42eaff45 !important;
+  font-family: Poppins,'sans-serif';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
 
 .main-sub1-div-style {
   border: 1px solid #d9d9e1 !important;
@@ -37,12 +45,6 @@
   margin-bottom: 15px !important;
   margin-top: 14px !important;
 }
-
-
-
-
-
-
 
 
 .top-heading-main_div {
@@ -103,7 +105,7 @@ div .loading {
   margin-top: unset;
   margin-bottom: unset;
   font-size: 20px;
-  font-weight: 600!important;
+  font-weight: 500!important;
 }
 
 .imag-style {
