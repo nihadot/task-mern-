@@ -1,6 +1,7 @@
 html body{
   /* background-color: #6ae2f145 !important; */
-  background-color: #42eaff45 !important;
+  /* background-color: #42eaff45 !important; DD*/
+  background-color: #ebf6fa !important;
   font-family: Poppins,'sans-serif';
   margin: 0;
   padding: 0;
@@ -93,7 +94,7 @@ div .font-size-16 {
 /* Home styles */
 
 div.home-row {
-  margin: 20px 30px;
+  /* margin: 20px 30px; */
   margin-top: 40px;
 }
 
@@ -104,8 +105,8 @@ div .loading {
 .font-weight {
   margin-top: unset;
   margin-bottom: unset;
-  font-size: 20px;
-  font-weight: 500!important;
+  font-size: 22px;
+  font-weight: 600!important;
 }
 
 .imag-style {
