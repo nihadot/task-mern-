@@ -7,7 +7,7 @@ const productHelpers = require("../helpers/product-helpers");
 var router = express.Router();
 
 //----------SET-VARIABLE----------//
-var admin = true;
+// var admin = true;
 //----------LOGIN-CHECK----------//
 const verifyLogin = (req, res, next) => {
   if (req.session.adminLoggedIn) {
@@ -21,452 +21,107 @@ const verifyLogin = (req, res, next) => {
 // | *************************************HOME************************************* |
 //  --------------------------------------------------------------------------------
 
-//----------HOME-PAGE----------//
 router.get("/", verifyLogin, function (req, res, next) {
-  res.redirect(`/${variable.admin_router}/view-categories`)
+  res.redirect(`/${variable.admin_router}/home`)
 });
 
-//  --------------------------------------------------------------------------------
-// | *************************************HOME************************************* |
-//  --------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-//  --------------------------------------------------------------------------------
-// | *************************************USERS************************************ |
-//  --------------------------------------------------------------------------------
-//----------ALL-USERS----------//
-router.get("/all-users", verifyLogin, (req, res) => {
-  productHelpers.getUserDetails().then((userData) => {
-    userData = userData.users
-    let Admin = req.session.admin;
-    res.render(`${variable.admin_router}/all-users`, {
-      admin,
-      userData,
-      Admin,
+// home page
+router.get('/home',verifyLogin,(req,res)=>{
+  productHelpers.getAllDepartments().then((response) => {
+    res.render(`${variable.admin_router}/home`, {
+      AdminDashBoardHeader:true,
+      DepartmentData:response,
+      admin:req.session.admin
     });
   });
-});
-
-
-
-
-
-
-
-
-
-
-//  --------------------------------------------------------------------------------
-// | ************************************DELETE************************************ |
-//  --------------------------------------------------------------------------------
-//----------DELETE-CATEGORY----------//
-router.post("/delete-category", (req, res) => {
-  let categoryId = req.body.id;
-  productHelpers.deleteCategory(categoryId).then((response) => {
-    res.json({status:true})
-  });
-});
-//----------DELETE-SUB-CATEGORY----------//
-router.post("/delete-subcategory/", (req, res) => {
-  if(req.session.adminLoggedIn){
-    let subcategoryId = req.body.id;
-  let name = req.session.Name_Show_Subcategory_View
-  productHelpers.deleteSubCategory(subcategoryId).then((response) => {
-    if(response.status){
-      let id = req.session.RedirectPurposeStoreID__DeleteSubCategory;
-      res.json({status:true,delete:true})
-    }else{
-      let id = req.session.RedirectPurposeStoreID__DeleteSubCategory;
-      res.json({status:true,delete:false})
-    }
-  });
-  }else{
-    res.json({status:false,delete:null})
-  }
-});
-
-
-
-
-
-
-
-
-
-
-//  --------------------------------------------------------------------------------
-// | *************************************EDIT************************************* |
-//  --------------------------------------------------------------------------------
-//----------GET-EDIT-CATEGORY----------//
-router.get("/edit-category/:id/:name", verifyLogin, async (req, res) => {
-  let name = req.session.Category_Name = req.params.name   // null
-  let id = req.session.Category_Id = req.params.id         // null
-  let category = await productHelpers.getCategoryDetails(req.params.id);
-  let Admin = req.session.admin;
-  let Response_For_Edit_Category = req.session.Response_For_Edit_Category
-  res.render(`${variable.admin_router}/edit-category`, {
-    category,
-    admin,
-    Admin,
-    name,
-    Response_For_Edit_Category,
-  });
-  req.session.Response_For_Edit_Category = null
-});
-//----------POST-EDIT-CATEGORY----------//
-router.post("/edit-category/:id", verifyLogin, (req, res) => {
-  let CheckWhiteSpace = req.body.name;
-  let id = req.params.id;
-  let trimStr = CheckWhiteSpace.trim();
-  let Name_For_RedDiR = req.session.Category_Name
-  if(req.body.name === ''){
-    req.session.Response_For_Edit_Category = 
-    {
-      message : 'Name null',
-      status : false
-    }
-    res.redirect(`/${variable.admin_router}/edit-category/${id}/${Name_For_RedDiR}`);
-  }else{
-    productHelpers.updateCategory(req.params.id, req.body, trimStr).then((response) => {
-      req.session.Category_Name = trimStr
-    if(req.files){
-      let image = req.files.image;
-      image.mv("./public/category-images/" + id + ".jpg");
-      req.session.Response_For_Edit_Category = 
-      {
-        message : 'Successfully updated',
-        status : true
-      }
-      res.redirect(`/${variable.admin_router}/edit-category/${id}/${trimStr}`);
-    }else{
-      req.session.Response_For_Edit_Category = 
-      {
-        message : 'Successfully updated',
-        status : true
-      }
-      res.redirect(`/${variable.admin_router}/edit-category/${id}/${trimStr}`);
-    }
-    });
-  }
-});
-//----------GET-EDIT-SUBCATEGORY----------//
-router.get("/edit-subcategory/:id/:name", verifyLogin, (req, res) => {
-  let _id = req.session.SubCat_Id = req.params.id;
-  let SubCat_id = req.session.RedirectPurposeStoreID__DeleteSubCategory
-  let name = req.session.SubCat_Name = req.params.name; //
-  let SubCatName = req.session.Name_Show_Subcategory_View
-  let Admin = req.session.admin;
-  let Response_For_Edit_Category = req.session.Response_For_Edit_Category
-  productHelpers.getSubcategory(req.params.id).then((response) => {
-    res.render(`${variable.admin_router}/edit-subcategory`, {
-      admin,
-      response,
-      Admin,
-      name,
-      SubCatName,
-      SubCat_id,
-      Response_For_Edit_Category,
-    });
-  });
-  req.session.Response_For_Edit_Category = null
-});
-//----------POST-EDIT-SUBCATEGORY----------//
-router.post("/edit-subcategory/:id", verifyLogin, (req, res) => {
-  let SubCat_Edit_Item_id = req.session.SubCat_Id
-  let SubCat_Name = req.session.SubCat_Name
-  if(req.body.name === '' ){
-    req.session.Response_For_Edit_Category = {
-      message : 'Empty name',
-      status : false,
-      image : false,
-    }
-    res.redirect(`/${variable.admin_router}/edit-subcategory/${SubCat_Edit_Item_id}/${SubCat_Name}`);
-  }else{  
-  let CheckWhiteSpace = req.body.name;
-  let trimStr = CheckWhiteSpace.trim();
-  let SubCat_ID = req.session.RedirectPurposeStoreID__DeleteSubCategory
-  productHelpers.updateSubcategory(req.params.id, req.body,trimStr,SubCat_ID).then((response) => {
-    if (req.files) {
-      let id = req.params.id;
-      let image = req.files.image;
-      image.mv("./public/sub-category-images/" + id + ".jpg");
-      req.session.Response_For_Edit_Category = {
-        message : 'Successfully updated',
-        status : true,
-        image : true
-      }
-      res.redirect(`/${variable.admin_router}/edit-subcategory/${SubCat_Edit_Item_id}/${trimStr}`);
-    }else{
-      req.session.Response_For_Edit_Category = {
-        message : 'Successfully updated',
-        status : true,
-        image : false
-      }
-      res.redirect(`/${variable.admin_router}/edit-subcategory/${SubCat_Edit_Item_id}/${trimStr}`);
-    }
-  });
-}
-  
-});
-//----------GET-EDIT-PROFILE----------//
-router.get("/edit-profile", verifyLogin, (req, res) => {
-  let Admin = req.session.admin;
-  let Edit_Response = req.session.Response_For_Edit_Profile
-  productHelpers.getAdminData(req.session.admin._id).then((data) => {
-    res.render(`${variable.admin_router}/edit-profile`, { admin, data, Admin,Edit_Response });
-    req.session.Response_For_Edit_Profile = null
-  });
-});
-//----------POST-EDIT-PROFILE----------//
-router.post("/edit-profile", verifyLogin, async (req, res) => {
-  req.session.Edit_Profile_Data_For_Input = req.body;
-  res.redirect(`/${variable.admin_router}/verifyPass`);
-});
-//----------VERIFYING-PROFILE-EDIT----------//
-router.get('/verifyPass',verifyLogin, (req, res)=>{
-  let Admin = req.session.admin;
-  let email = req.session.Edit_Profile_Data_For_Input.email
-  let value = req.session.Edit_Profile_Data_For_Input
-  let Response = req.session.Response_For_Edit_Profile
-  res.render(`${variable.admin_router}/verifyPass`, { admin,Admin,Response });
-  req.session.Response_For_Edit_Profile = null
 })
-router.post("/verifyPass", verifyLogin, (req, res) => {
-  if(req.body.password === '') {
-    req.session.Response_For_Edit_Profile = {
-      message : 'Password is null',
-      status : false,
-    }
-    res.redirect(`/${variable.admin_router}/verifyPass`);
-  }
-  else if(req.body.password){
-    productHelpers.confirmPass(req.body.password, req.session.admin.password).then((response) => {
-      if (response.status) {
-        productHelpers.updateProfile(req.session.Edit_Profile_Data_For_Input, req.session.admin._id).then((Response_Update) => { 
-          req.session.admin = Response_Update.admin
-          req.session.Response_For_Edit_Profile = {
-            message : 'Successfully updated',
-            status : true,
-          }
-            res.redirect(`/${variable.admin_router}/edit-profile`);
-          });
-      } else {
-        req.session.Response_For_Edit_Profile = {
-          message : response.message,
-          status : false,
-        }
-        res.redirect(`/${variable.admin_router}/verifyPass`);
-      }
-    });
-  }
-});
-
-
-
-
-
-
-
-
-
-
 
 //  --------------------------------------------------------------------------------
 // | ************************************ADDING************************************ |
 //  --------------------------------------------------------------------------------
-//----------GET-ADD-SUBCATEGORIES----------//
-router.get("/add-subcategories/:id/:name", verifyLogin, (req, res) => {
-  let _id = req.session.SubCat = req.params.id;
-  req.session.SubCatName = req.params.name;
-  let name = req.params.name;
-  let Admin = req.session.admin;
-  let FormStatus = req.session.Data_Added_SubCat_Status;
-  res.render(`${variable.admin_router}/add-subcategories`, 
+
+router.get("/addingDepartment", verifyLogin, (req, res) => {
+  res.render(`${variable.admin_router}/addingDept`, 
     {
-      admin,
-      Admin,
-      FormStatus,
-      name,
-      _id
+      AdminDashBoardHeader:true,
+      admin:req.session.admin
     });
-    req.session.Data_Added_SubCat_Status = null;
 });
-//----------POST-ADD-SUBCATEGORIES----------//
-router.post("/add-subcategories", verifyLogin, (req, res) => {
-  let SubCatID = req.session.SubCat;
-  let name = req.session.SubCatName;
-  if (req.body.name === "") {
-    req.session.Data_Added_SubCat_Status ={ message: 'Empty data entered',status: false };
-    res.redirect(`/${variable.admin_router}/add-subcategories/${SubCatID}/${name}`);
-  } else {
-    let CheckWhiteSpace = req.body.name;
-    let trimStr = CheckWhiteSpace.trim();
-    productHelpers.addSubcategories(req.body, SubCatID,trimStr).then((response) => {
-      if (response.status) {
-        let Admin = req.session.admin;
-        if (req.files) {
-          let image = req.files.image;
-          image.mv("./public/sub-category-images/" + response.inserted_Id + ".jpg", (err) => {
-            if (!err) {
-              req.session.Data_Added_SubCat_Status = { message: "Successfully added",status: true }
-              res.redirect(`/${variable.admin_router}/add-subcategories/${SubCatID}/${name}`); 
-            } else {
-              req.session.Data_Added_SubCat_Status = 
-              { message: 'Error image adding ('+err+')', status: false };
-              res.redirect(`/${variable.admin_router}/add-subcategories/${SubCatID}/${name}`);
-            }
-          });
-        } else {
-          req.session.Data_Added_SubCat_Status = { message: "Successfully added", status: true };
-          res.redirect(`/${variable.admin_router}/add-subcategories/${SubCatID}/${name}`); 
-        }
-      } else {
-        req.session.Data_Added_SubCat_Status = { message: response.message, status: false,}
-        res.redirect(`/${variable.admin_router}/add-subcategories/${SubCatID}/${name}`);
+
+router.post("/addingDepartment", verifyLogin, (req, res) => {
+    productHelpers.addingDepartment(req.body).then((response)=>{
+      if(req.files){
+        let image = req.files.image
+        image.mv("./public/departmentPic/" + response.inserted_Id + ".jpg",(err)=>{
+            res.redirect(`/${variable.admin_router}/addingDepartment`); 
+        })
+      }else{
+        res.redirect(`/${variable.admin_router}/addingDepartment`); 
       }
-    });
-  }
+    })
 });
-//----------GET-ADD-CATEGORIES----------//
-router.get("/add-categories", verifyLogin, (req, res) => {
-  let Admin = req.session.admin;
-  let Response_For_AddCategories = req.session.Response_For_AddCategories
-  res.render(`${variable.admin_router}/add-categories`, {
-    admin,
-    Admin,
-    Response_For_AddCategories,
+
+//----------GET-EDIT-CATEGORY----------//
+router.get("/editDepartment/:id/", verifyLogin, async (req, res) => {
+  let department = await productHelpers.getDepaartmentDetails(req.params.id);
+  res.render(`${variable.admin_router}/editDepartment`, {
+    department,
+    AdminDashBoardHeader:true,
+    admin:req.session.admin
   });
-  req.session.Response_For_AddCategories = null;
 });
-//----------POST-ADD-CATEGORIES----------//
-router.post("/add-categories", verifyLogin, (req, res) => {
-  if(req.body.name === ''){
-    req.session.Response_For_AddCategories = 
-    {
-      message: 'Empty value',
-      status : false
-    }
-    res.redirect(`/${variable.admin_router}/add-categories`);
-  }else{
-    let CheckWhiteSpace = req.body.name;
-    let trimStr = CheckWhiteSpace.trim();
-  productHelpers.AddCategories(req.body, trimStr, (response) => {
-    if (response.status) {
-      if (req.files) {
-        let image = req.files.image;
-        image.mv("./public/category-images/" + response.inserted_Id + ".jpg", (err) => {
-          if (!err) {
-            req.session.Response_For_AddCategories = 
-            {
-              message: 'Successfully submitted',
-              status : true
-            }
-            res.redirect(`/${variable.admin_router}/add-categories`);
-          } else {
-            req.session.Response_For_AddCategories = 
-            {
-              message: 'Error image ('+err+')',
-              status : false
-            }
-          }
-        });
-      } else {
-        req.session.Response_For_AddCategories = 
-        {
-          message: 'Successfully submitted',
-          status : true
-        }
-        res.redirect(`/${variable.admin_router}/add-categories`);
+//----------POST-EDIT-CATEGORY----------//
+router.post("/editDepartment/:id", verifyLogin, (req, res) => {
+  console.log(req.body)
+  let id = req.params.id;
+    productHelpers.updateDepartment(req.body,id).then((response) => {
+      if(req.files){
+        let image = req.files.image
+        image.mv("./public/departmentPic/" +id+ ".jpg",(err)=>{
+            res.redirect(`/${variable.admin_router}/editDepartment/${id}`); 
+        })
+      }else{
+        res.redirect(`/${variable.admin_router}/editDepartment/${id}`); 
       }
-    } else {
-      req.session.Response_For_AddCategories = 
-      {
-        message : response.message,
-        status:false
-      };
-      res.redirect(`/${variable.admin_router}/add-categories`);
-    }
-  });
-}
+    })
 });
 
+  //----------DELETE-CATEGORY----------//
+  router.delete("/deleteDepartment", (req, res) => {
+    productHelpers.deleteDepartment(req.body.id).then((response) => {
+      res.json({status:true})
+    });
+  });
 
 
 
-
-
-
-
-
-
-
-
-
-
-//  --------------------------------------------------------------------------------
-// | *************************************VIEW************************************* |
-//  --------------------------------------------------------------------------------
-//----------GET-VIEW-SUBCATEGORY----------//
-router.get("/subcategoryVIew/:id/:name", verifyLogin, async (req, res) => {
-  let _id = req.session.RedirectPurposeStoreID__DeleteSubCategory = req.params.id;
-  let name = req.session.Name_Show_Subcategory_View = req.params.name
-  let subCategories = await productHelpers.getSubCategoryDetails(req.params.id);
+//----------GET-EDIT-PROFILE----------//
+router.get("/edit-profile", verifyLogin, (req, res) => {
   let Admin = req.session.admin;
-  if (subCategories.status) {
-    res.render(`${variable.admin_router}/subcategoryVIew`, 
-    {
-      admin,
-      Admin,  
-      subCategories:subCategories.response,
-      name,
-      _id
-    });
-  }else {
-    res.render(`${variable.admin_router}/subcategoryVIew`, {
-      admin,
-      name,
-      _id,
-      Admin,
-    });
-  }
-});
-router.get('/view-categories',verifyLogin,(req,res)=>{
-  productHelpers.getAllCategories().then((response) => {
-    let Categories = response.categories
-    let Admin = req.session.admin;
-    res.render(`${variable.admin_router}/view-categories`, {
-      admin,
-      Categories,
-      Admin,
-    });
+  // let Edit_Response = req.session.Response_For_Edit_Profile
+  productHelpers.getAdminData(req.session.admin._id).then((data) => {
+    // console.log('data,',data)
+    res.render(`${variable.admin_router}/edit-profile`, {AdminDashBoardHeader:true,data,admin:req.session.admin });
+    // req.session.Response_For_Edit_Profile = null
   });
-})
-router.post('/re_count',async(req,res)=>{
-  if(req.session.adminLoggedIn){
-    let userCount     = await productHelpers.getUserDetails()
-    let categories    = await productHelpers.getAllCategories()
-    let subcategories = await productHelpers.getSubcategories()
-    let emailAll      = await productHelpers.getEmails()
-    let obj = {
-      userCount    ,
-      categories   ,
-      subcategories,
-      emailAll     ,
-    }
-    res.json({status:true,obj,admin:true})
-  }else{
-    let route = `/${variable.admin_router}/login`
-    res.json({status:false,route})
-  }
-})
+});
+//----------POST-EDIT-PROFILE----------//
+router.post("/edit-profile", verifyLogin, async (req, res) => {
+  // req.session.Edit_Profile_Data_For_Input = req.body;
+  console.log(req.body)
+  productHelpers.updateProfile(req.body,req.session.admin._id).then((response)=>{
+    req.session.admin = null;
+    // req.session.adminLoggedIn = ;
+    
+    req.session.admin = response;
+    req.session.adminLoggedIn = true;
+    console.log(response,'response')
+      
+    res.redirect(`/${variable.admin_router}/edit-profile`);
+  })
+});
+
+
 
 
 
@@ -487,196 +142,38 @@ router.get("/login", (req, res) => {
   if (req.session.adminLoggedIn) {
     res.redirect(`/${variable.admin_router}/view-categories`);
   } else {
-    let RESPONSE_FOR_FORGOT_PASSWORD = req.session.RESPONSE_FOR_FORGOT_PASSWORD;
     res.render(`${variable.admin_router}/login`, {
+      // show error message
       adminLogErr: req.session.adminLogErr,
-      RESPONSE_FOR_FORGOT_PASSWORD,
-      static: true,
+      AdminDefaultHeader: true,
+      admin:req.session.admin
     });
     req.session.adminLogErr = false;
-    req.session.RESPONSE_FOR_FORGOT_PASSWORD = null;
   }
 });
 // //----------POST-LOGIN----------//
 router.post("/login", (req, res) => {
+  // login form data available { req.body }
   productHelpers.doLogin(req.body).then(async (response) => {
-    if (response.status) {
+    // get data response
+    if (response) {
       let email = req.body.email;
+      // assign data to cookies
       req.session.admin = response.admin;
       req.session.adminLoggedIn = true;
-      productHelpers.getAllCategories().then((Categories) => {
-        let Admin = req.session.admin;
-        res.redirect(`/${variable.admin_router}/view-categories`);
-      });
-    } else {
-      req.session.adminLogErr = "Invalid Password or Username";
-      res.redirect(`/${variable.admin_router}/login`);
-    }
-  });
+      res.redirect(`/${variable.admin_router}/home`);
+    } 
+  }).catch((err)=>{
+    req.session.adminLogErr = err.message;
+    console.log(err)
+    res.redirect(`/${variable.admin_router}/login`);
+  }  );
 });
 // //----------LOG-OUT----------//
 router.get("/logout", (req, res) => {
   req.session.admin = null;
   req.session.adminLoggedIn = null;
   res.redirect(`/${variable.admin_router}/login`);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  --------------------------------------------------------------------------------
-   | ************************ IF USER CLICK FORGOT PASSWORD *********************** |
-    --------------------------------------------------------------------------------  */
-//----------GET-FORGOT-PASSWORD----------//
-router.get("/forgot-password", (req, res) => {
-  let sess = req.session;
-  let RESPONSE_FOR_ENTER_EMAIL = sess.RESPONSE_FOR_ENTER_EMAIL;
-  let RESPONSE_FOR_ENTER_EMAIL_MODULE_ERROR =
-    sess.RESPONSE_FOR_ENTER_EMAIL_MODULE_ERROR;
-  res.render(`${variable.admin_router}/forgot-password`, {
-    RESPONSE_FOR_ENTER_EMAIL,
-    RESPONSE_FOR_ENTER_EMAIL_MODULE_ERROR,
-    static: true,
-  });
-  sess.RESPONSE_FOR_ENTER_EMAIL = null;
-  sess.RESPONSE_FOR_ENTER_EMAIL_MODULE_ERROR = null;
-});
-//----------POST-FORGOT-PASSWORD----------//
-router.post("/forgot-password", (req, res) => {
-  let sess = req.session;
-  if (req.body.email === "") {
-    sess.RESPONSE_FOR_ENTER_EMAIL = obj = {
-      heading: `${messages.Heading_For_Empty_Value_That_Email}`,
-      paragraph: `${messages.Paragraph_For_Empty_Value_That_Email}`,
-    };
-    res.redirect(`/${variable.admin_router}/forgot-password`);
-  } else {
-    productHelpers.FoundEmail(req.body).then(async (response) => {
-      if (response.status == true) {
-        try {
-          const resForLogin = await Auth(req.body.email, "AHLBYT");
-          sess.ELIGIBLE_FOR_SENT_0TP = {
-            resForLogin,
-            status: true,
-          };
-
-          console.log(resForLogin)
-
-          sess.ELIGIBLE_FOR_SENT_0TP_STATUS = true;
-          res.redirect(`/${variable.admin_router}/verifyOtpForgetPass`);
-        } catch (error) {
-          sess.RESPONSE_FOR_ENTER_EMAIL_MODULE_ERROR = error;
-          res.redirect(`/${variable.admin_router}/forgot-password`);
-        }
-      } else {
-        sess.RESPONSE_FOR_ENTER_EMAIL = obj = {
-          heading: `${messages.Heading_For_NotFound_Value_That_Email}`,
-          paragraph: `${messages.Paragraph_For_NotFound_Value_That_Email}`,
-        };
-        res.redirect(`/${variable.admin_router}/forgot-password`);
-      }
-    });
-  }
-});
-//----------GET-CONFIRM-OTP----------//
-router.get("/verifyOtpForgetPass", (req, res) => {
-  let sess = req.session;
-  if (sess.ELIGIBLE_FOR_SENT_0TP_STATUS) {
-    let email = sess.ELIGIBLE_FOR_SENT_0TP.resForLogin.mail;
-    let RESPONSE_FOR_ENTER_OTP = sess.RESPONSE_FOR_ENTER_OTP;
-    res.render(`${variable.admin_router}/verifyOtpForgetPass`, {
-      email,
-      RESPONSE_FOR_ENTER_OTP,
-      static: true,
-    });
-    sess.RESPONSE_FOR_ENTER_OTP = null;
-  } else {
-    res.redirect(`/${variable.admin_router}/forgot-password`);
-  }
-});
-//----------POST-CONFIRM-OTP----------//
-router.post("/verifyOtpForgetPass", async (req, res) => {
-  let sess = req.session;
-  let USER_OTP = sess.ELIGIBLE_FOR_SENT_0TP.resForLogin.OTP + "";
-  // console.log(USER_OTP, "server otp");
-  if (req.body.security_code === "") {
-    sess.RESPONSE_FOR_ENTER_OTP = `${messages.Empty_OTP_Is_Response}`;
-    res.redirect(`/${variable.admin_router}/verifyOtpForgetPass`);
-  } else {
-    if (req.body.security_code === USER_OTP) {
-      sess.Update_Password_Route_Status = true;
-      res.redirect(`/${variable.admin_router}/forgotPassword`);
-      sess.ELIGIBLE_FOR_SENT_0TP_STATUS = null;
-    } else {
-      sess.RESPONSE_FOR_ENTER_OTP = `${messages.OTP_Invalid}`;
-      res.redirect(`/${variable.admin_router}/verifyOtpForgetPass`);
-    }
-  }
-});
-
-//----------AFTER-OTP-CONFIRM-UPDATE-PASSWORD----------//
-
-//----------GET-UPDATE-PASSWORD----------//
-router.get("/forgotPassword", (req, res) => {
-  let sess = req.session;
-  if (sess.Update_Password_Route_Status) {
-    let RESPONSE_FOR_ENTER_PASSWORD = sess.RESPONSE_FOR_ENTER_PASSWORD;
-    res.render(`${variable.admin_router}/forgotPassword`, {
-      RESPONSE_FOR_ENTER_PASSWORD,
-      static: true,
-    });
-    sess.RESPONSE_FOR_ENTER_PASSWORD = null;
-  } else {
-    res.redirect(`/${variable.admin_router}/forgot-password`);
-  }
-});
-//----------POST-UPDATE-PASSWORD----------//
-router.post("/forgotPassword", (req, res) => {
-  let sess = req.session;
-  if (req.body.password === "") {
-    sess.RESPONSE_FOR_ENTER_PASSWORD = `${messages.Empty_New_Password}`;
-    res.redirect(`/${variable.admin_router}/forgotPassword`);
-  } else if (req.body.password.length >= 6) {
-    if (req.body.password.length <= 16) {
-      let ForgetPassEmail = sess.ELIGIBLE_FOR_SENT_0TP.resForLogin.mail;
-      productHelpers.ForgotPassword(req.body, ForgetPassEmail).then((response) => {
-          if (response.modifiedCount === 1) {
-            sess.Update_Password_Route_Status = null;
-            sess.RESPONSE_FOR_FORGOT_PASSWORD = obj = {
-              message: `${messages.Password_Reset_Successful}`,
-              status: true,
-            };
-            res.redirect(`/${variable.admin_router}/login`);
-          } else {
-            sess.RESPONSE_FOR_FORGOT_PASSWORD = obj = {
-              message: `${messages.Password_Reset_Failed}`,
-              status: false,
-            };
-            res.redirect(`/${variable.admin_router}/login`);
-          }
-        });
-    } else {
-      sess.RESPONSE_FOR_ENTER_PASSWORD = `${messages.No_MoreThan_Restricted_Characters}`;
-      res.redirect(`/${variable.admin_router}/forgotPassword`);
-    }
-  } else {
-    sess.RESPONSE_FOR_ENTER_PASSWORD = `${messages.Enter_Minimum_Restricted_Characters}`;
-    res.redirect(`/${variable.admin_router}/forgotPassword`);
-  }
 });
 
 module.exports = router;

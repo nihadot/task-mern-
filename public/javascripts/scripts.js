@@ -175,8 +175,8 @@ function deleteCat(id, name) {
   let cfm = confirm("Are you want to delete " + name);
   if (cfm) {
     $.ajax({
-      url: "/admin/delete-category/",
-      method: "post",
+      url: "/admin/deleteDepartment/",
+      method: "delete",
       data: {
         id: id,
       },

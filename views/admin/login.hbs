@@ -5,7 +5,7 @@
         <div class="card-wrapper">
           <div class="top-heading-main_div">
             <div class="p-3 top-heading-sub_div">
-              <h3 class="top-heading">AHLBYT</h3>
+              <h3 class="top-heading">Hospital Manager</h3>
             </div>
           </div>
           <div class="card fat">
@@ -18,21 +18,6 @@
                   </div>
                 </div>
                 {{/if}}
-                {{#if RESPONSE_FOR_FORGOT_PASSWORD }}
-                {{#if RESPONSE_FOR_FORGOT_PASSWORD.status}}
-                <div class="success-forgot-password">
-                  <div class="error-message">
-                    <p class="error-message-heading">{{RESPONSE_FOR_FORGOT_PASSWORD.message}}</p>
-                  </div>
-                </div>
-                {{else}}
-                <div class="error-div">
-                  <div class="error-message">
-                    <p class="error-message-heading">{{RESPONSE_FOR_FORGOT_PASSWORD.message}}</p>
-                  </div>
-                </div>
-                {{/if}}
-                {{/if}}
                 <div class="form-group">
                   <input id="email" type="email" class="form-control" placeholder="Email address" name="email" >
                 </div>
@@ -41,7 +26,7 @@
                 </div>
                 <div class="form-group">
                   <div class="custom-checkbox custom-control p-0">
-                    <a class="font-size-12" href="/admin/forgot-password">Forgot Password?</a>
+                    <a class="font-size-12" href="/admin/">Forgot Password?</a>
                   </div>
                   <div class="custom-checkbox custom-control p-0">
                     <a class="font-size-12" href="/">Back to User</a>

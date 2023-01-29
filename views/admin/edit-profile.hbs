@@ -4,31 +4,13 @@
             <div class="">
                 <form action="/admin/edit-profile" method="post" id="editProfile">
                     <div class="row add-SubCatLeftUI  mt-4">
-                        {{#if Edit_Response}}
-                        {{#if Edit_Response.status}}
-                        <div class="success-forgot-password w-100">
-                            <div class="error-message">
-                                <div class="error-message-heading">{{Edit_Response.message}}</div>
-                            </div>
-                        </div>
-                        {{else}}
-                        <div class="error-div w-100">
-                            <div class="error-message">
-                                <p class="error-message-heading">{{Edit_Response.message}}</p>
-                            </div>
-                        </div>
-                        {{/if}}
-                        {{/if}}
                         <div class="col-12">
-                            <label>Name<span class="text-danger">*</span></label>
-                            <input type="text" id="name" placeholder="Name" class="form-control" name="name" value="{{data.name}}" />
+                            <input type="text" id="name" placeholder="Name" class="form-control" name="name" value="{{data.name}}" /><br>
                         </div>
                         <div class="col-12">
-                            <label>Email<span class="text-danger">*</span></label>
-                            <input type="email" id="email" placeholder="E-mail" class="form-control" name="email" value="{{data.email}}" />
+                            <input type="email" id="email" placeholder="E-mail" class="form-control" name="email" value="{{data.email}}" /><br>
                         </div>
                         <div class="col-12">
-                            <label>Password</label>
                             <input type="password" id="password" placeholder="Password" class="form-control" name="password" />
                         </div>
 

@@ -1,0 +1,25 @@
+
+
+<div class="row">
+  {{#each DepartmentData}}
+  <div class="col-xl-3" style="margin: 12px;">
+    <div class="card" style="width: 18rem;">
+      <img
+        class="card-img-top"
+        src="/departmentPic/{{this._id}}.jpg"
+        alt="loading..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{this.DepartmentName}}</h5>
+        <h6 class="card-title">{{this.YearFounded}}</h6>
+        <p class="card-text">{{this.Description}}</p>
+      </div>
+      <div style="padding: 15px;">
+        <a href="/admin/editDepartment/{{this._id}}" style="color: blue;padding:10px">Edit</a>
+        <a href="" onclick="deleteCat('{{this._id}}',',{{this.DepartmentName}}')" style="color: red;">Delete</a>
+        {{!-- <a href=""></a> --}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

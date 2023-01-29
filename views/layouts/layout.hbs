@@ -57,8 +57,8 @@
 
   <body>
 
-    {{#if admin}}
-    {{>admin-header}}
+    {{#if AdminDashBoardHeader}}
+    {{>adminDashHeader}}
     {{/if}}
 
     {{#if user_header}}
@@ -67,8 +67,8 @@
     {{!-- {{>footer}} --}}
     {{/if}}
 
-    {{#if static}}
-    {{> admin-static-head}}
+    {{#if AdminDefaultHeader}}
+    {{> adminDefaultHeader}}
     {{{body}}}
     {{/if}}
 
