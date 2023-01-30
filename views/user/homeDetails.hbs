@@ -1,7 +1,7 @@
-<h4 style="padding: :25px;">Departments</h4>
+<h4 style="padding:25px;">{{DepartmentData.DepartmentName}}</h4>
 
 <div class="row">
-  {{#each DepartmentData}}
+  {{#if DepartmentData}}
   <div class="col-xl-3" style="margin: 12px;">
     <style>
       .card:hover{
@@ -11,13 +11,14 @@
     <div class="card" style="width: 18rem;" onclick="getDeptData('{{this._id}}')" >
       <img
         class="card-img-top"
-        src="/departmentPic/{{this._id}}.jpg"
+        src="/departmentPic/{{DepartmentData._id}}.jpg"
         alt="loading..."
       />
       <div class="card-body">
-        <h5 class="card-title">{{this.DepartmentName}}</h5>
-        {{!-- <h6 class="card-title">{{this.YearFounded}}</h6> --}}
-        {{!-- <p class="card-text">{{this.Description}}</p> --}}
+        <h5 class="card-title">{{DepartmentData.DepartmentName}}</h5>
+        <h6 class="card-title">{{DepartmentData.YearFounded}}</h6>
+        <p class="card-text">{{DepartmentData.Description}}</p>
+        <a href="/getDeptHeads/{{DepartmentData._id}}">Department Head</a>
       </div>
       <div style="padding: 15px;">
         {{!-- <a href="/admin/editDepartment/{{this._id}}" style="color: blue;padding:10px">Edit</a> --}}
@@ -26,5 +27,5 @@
       </div>
     </div>
   </div>
-  {{/each}}
+  {{/if}}
 </div>

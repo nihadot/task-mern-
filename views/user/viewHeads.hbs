@@ -1,0 +1,23 @@
+
+
+<div class="row">
+  {{#each DepartmentHeadData}}
+  <div class="col-xl-3" style="margin: 12px;">
+    <div class="card" style="width: 18rem;">
+      <img
+        class="card-img-top"
+        src="/deptHeaders/{{this._id}}.jpg" 
+        alt="loading..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{this.DepartmentHeadsName}}</h5>
+        <h6 class="card-title">{{this.EmployeeNum}}</h6>
+        <h6 class="card-title">{{this.Age}}</h6>
+        <p class="card-text">{{this.Description}}</p>
+      </div>
+      <div style="padding: 15px;">
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

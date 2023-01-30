@@ -1,0 +1,27 @@
+
+
+<div class="row">
+  {{#each deps}}
+  <div class="col-xl-3" style="margin: 12px;">
+    <div class="card" style="width: 18rem;">
+      <img
+        class="card-img-top"
+        src="/deptHeaders/{{this._id}}.jpg"
+        alt="loading..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{this.DepartmentHeadsName}}</h5>
+        <h6 class="card-title">{{this.EmployeeNum}}</h6>
+        <p class="card-text">{{this.Age}}</p>
+        <p class="card-text">{{this.Description}}</p>
+        <p class="card-text">{{deptName}}</p>
+      </div>
+      <div style="padding: 15px;">
+        <a href="/admin/editDepartmentHeads/{{this._id}}" style="color: blue;padding:10px">Edit</a>
+        <a href="" onclick="deleteDeptHeads('{{this._id}}',',{{this.DepartmentHeadsName}}')" style="color: red;">Delete</a>
+        {{!-- <a href=""></a> --}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

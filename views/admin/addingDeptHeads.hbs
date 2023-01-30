@@ -2,12 +2,12 @@
     <div class="container">
         <div class="">
             <a href="" class="text-dark text-decoration-none">
-                <h3>Create Departments</h3>
+                <h3>Create New Department Heads</h3>
             </a>
         </div>
         <div class="d-flex flex-row justify-content-between">
             <div class="">
-                <form action='/admin/addingDepartment' method="post" enctype="multipart/form-data">
+                <form action='/admin/addingDepartmentHeads' method="post" enctype="multipart/form-data">
                     <div class="row add-SubCatLeftUI  mt-4">
                         <div class="col-12">
                             <img class="m-4" src="" alt="" width="65px" height="50px" id="imgViewSubCat">
@@ -15,10 +15,10 @@
                                 onchange="viewImageSubCategory(event)" /> <br>
                         </div>
                         <div class="col-12">
-                            <input type="text" placeholder="Department Name" class="form-control" name="DepartmentName" /><br>
+                            <input type="text" placeholder="Name" class="form-control" name="DepartmentHeadsName" /><br>
                         </div>
                          <div class="col-12">
-                            <input type="number" placeholder="Year Founded" class="form-control" name="YearFounded" /><br>
+                            <input type="number" placeholder="Number" class="form-control" name="EmployeeNum" /><br>
                         </div>
                         <div class="col-12">
                             <input type="number" placeholder="Age" class="form-control" name="Age" /><br>
@@ -26,6 +26,19 @@
                          <div class="col-12">
                             <input type="text" placeholder="Description" class="form-control" name="Description" /><br>
                         </div>
+                           <div class="col-12">
+                               <label for="">Choose Dept.</label>
+                               <select name="DeptChoosen" id="">
+                                   {{#each deps}}
+                                   <option value="{{this._id}}">{{this.DepartmentName}}</option>
+                                   {{!-- <input type="text" value="{{this._id}}"> --}}
+                                   {{/each}}
+                                   {{!-- <option value="">Nihad</option> --}}
+                               </select>
+                            {{!-- <input type="checkbox" placeholder="Description" class="form-control" name="Description" /> --}}
+                        </div>
+
+                      
                         <div class="ml-3 Btn-ForCustomize margin-bottom-1rem">
                             <div class="">
                                 <button type="submit" class="btn btn-success mt-3 wid-110">Submit</button>

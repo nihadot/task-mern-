@@ -41,11 +41,13 @@ router.get('/home',verifyLogin,(req,res)=>{
 //  --------------------------------------------------------------------------------
 
 router.get("/addingDepartment", verifyLogin, (req, res) => {
+  console.log(1)
   res.render(`${variable.admin_router}/addingDept`, 
     {
       AdminDashBoardHeader:true,
       admin:req.session.admin
     });
+    console.log(1)
 });
 
 router.post("/addingDepartment", verifyLogin, (req, res) => {
@@ -115,11 +117,151 @@ router.post("/edit-profile", verifyLogin, async (req, res) => {
     
     req.session.admin = response;
     req.session.adminLoggedIn = true;
-    console.log(response,'response')
+    // console.log(response,'response')
       
     res.redirect(`/${variable.admin_router}/edit-profile`);
   })
 });
+
+
+
+
+
+
+
+// ///////////////////////////////////////////////////////////////
+
+
+
+
+
+router.get("/addingDepartmentHeads", verifyLogin, (req, res) => {
+  productHelpers.getAllDepartmentsFieldOnly().then((deps)=>{
+    console.log(2)
+
+    res.render(`${variable.admin_router}/addingDeptHeads`, {AdminDashBoardHeader:true,admin:req.session.admin,deps});
+  })
+});
+
+router.post("/addingDepartmentHeads", verifyLogin, (req, res) => {
+  console.log(req.body)
+  // productHelpers.getDepartmentDetailOne(req.body.DeptChoosen).then((response)=>{
+
+    productHelpers.addingDepartmentHeders(req.body).then((response)=>{
+      
+      
+      if(req.files){
+        let image = req.files.image
+        image.mv("./public/deptHeaders/" + response.inserted_Id + ".jpg",(err)=>{
+            res.redirect(`/${variable.admin_router}/addingDepartmentHeads`); 
+        })
+      }else{
+        res.redirect(`/${variable.admin_router}/addingDepartmentHeads`); 
+      }
+    })
+  // })
+});
+
+
+router.get("/listDeptHeads", verifyLogin, (req, res) => {
+  productHelpers.getAllDepartmentsHeads().then((deps)=>{
+    productHelpers.getDepartmentDetailOne(deps.DeptChoosen).then((deptName)=>{
+      console.log(deps,'deps')
+      console.log(deptName)
+      res.render(`${variable.admin_router}/listDeptHeaders`, {AdminDashBoardHeader:true,admin:req.session.admin,deps,deptName});
+    })
+  })
+});
+// /////////////
+
+router.get("/editDepartmentHeads/:id", verifyLogin, (req, res) => {
+  console.log(1)
+  productHelpers.getDeptHeads(req.params.id).then((getDeptHeads)=>{
+    console.log(1)
+    productHelpers.getDepartmentDetailOne(getDeptHeads.DeptChoosen).then((resp)=>{
+      productHelpers.getAllDepartmentsFieldOnly().then((deptName)=>{
+        // console.log(deptName)
+        res.render(`${variable.admin_router}/editDeptHeads`, {AdminDashBoardHeader:true,admin:req.session.admin,resp,getDeptHeads,Id:req.params.id,deptName});
+      })
+    })
+  })
+
+});
+
+
+
+router.delete("/deleteDeptHeads", (req, res) => {
+  productHelpers.deleteDepartmentHeads(req.body.id).then((response) => {
+    res.json({status:true})
+  });
+  // console.log(req.body.id,'hyy')
+});
+
+
+
+router.post("/editDepartmentHeads", verifyLogin, (req, res) => {
+  console.log(req.body,'post data')
+  productHelpers.updateDepartmentsHeads(req.body).then((deps)=>{
+ 
+  //     console.log(deps,'deps')
+  //     console.log(deptName)
+  //     res.render(`${variable.admin_router}/listDeptHeaders`, {AdminDashBoardHeader:true,admin:req.session.admin,deps,deptName});
+      
+  if(req.files){
+    let image = req.files.image
+    image.mv("./public/deptHeaders/" +req.body._id+ ".jpg",(err)=>{
+      res.redirect(`/${variable.admin_router}/editDepartmentHeads/${req.body._id}`);  
+    })
+  }else{
+    res.redirect(`/${variable.admin_router}/editDepartmentHeads/${req.body._id}`); 
+  }
+})
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -48,10 +48,7 @@ getDepaartmentDetails: (getDepId) => {
   },
   addingDepartment: (data) => {
     return new Promise(async (resolve, reject) => {
-      db.get()
-        .collection(collection.DEPARTMENT)
-        .insertOne(data)
-        .then((data) => {
+      db.get().collection(collection.DEPARTMENT).insertOne(data).then((data) => {
           resData = {
             inserted_Id: data.insertedId,
             status: true,
@@ -126,6 +123,89 @@ getDepaartmentDetails: (getDepId) => {
       } else {
         reject({ status: false, message: "Email not found" });
       }
+    });
+  },
+  getAllDepartmentsFieldOnly: () => {
+    return new Promise(async(resolve, reject) => {
+     let result =await db.get().collection(collection.DEPARTMENT).aggregate([
+         {
+             $project:{
+                 _id:1,
+                 DepartmentName:1
+             }
+         }
+     ]).toArray()
+    resolve(result)
+    });
+  },
+  addingDepartmentHeders: (data) => {
+    return new Promise(async(resolve, reject) => {
+        db.get().collection(collection.DEPARTMENT_HEADERS).insertOne(data).then((data) => {
+            resData = {
+              inserted_Id: data.insertedId,
+              status: true,
+            };
+            resolve(resData);
+          });
+    });
+  },
+  getDepartmentDetailOne: (data) => {
+    return new Promise(async(resolve, reject) => {
+        let result =await db.get().collection(collection.DEPARTMENT).findOne({_id:objectId(data)})
+        // .then((data) => {
+            // resData = {
+            //   inserted_Id: data.insertedId,
+            //   status: true,
+            // };
+            // console.log(result,'data')
+            resolve(result);
+          // });
+    });
+  },
+  
+  getAllDepartmentsHeads: (id) => {
+    return new Promise(async(resolve, reject) => {
+      
+      let result =await db.get().collection(collection.DEPARTMENT_HEADERS).find({DeptChoosen:id+''}).toArray()
+      console.log(result,'ressults')
+      resolve(result)
+    });
+  },
+  getDeptHeads: (id) => {
+    return new Promise(async(resolve, reject) => {
+      db.get().collection(collection.DEPARTMENT_HEADERS).findOne({_id:objectId(id)}).then((result)=>{
+        resolve(result)
+      })
+    });
+  },
+  
+  updateDepartmentsHeads: (data) => {
+    return new Promise(async (resolve, reject) => {
+      console.log(data,'data')
+        db.get().collection(collection.DEPARTMENT_HEADERS).updateOne(
+            { _id: objectId(data._id) },
+            {
+              $set: {
+                DepartmentHeadsName: data.DepartmentHeadsName,
+                EmployeeNum: data.EmployeeNum,
+                Age: data.Age,
+                Description: data.Description,
+              },
+            }
+          )
+          .then(async (response) => {
+            let admin = await db.get().collection(collection.DEPARTMENT_HEADERS).findOne({ _id: objectId(data._id) });
+            resolve(admin);
+            console.log(admin)
+          });
+    });
+  },
+  
+  deleteDepartmentHeads: (deprtHeadId) => {
+    return new Promise((resolve, reject) => {
+      db.get().collection(collection.DEPARTMENT_HEADERS).deleteOne({ _id: objectId(deprtHeadId) }).then((response) => {
+          resolve(true)
+        });
     });
   },
 };

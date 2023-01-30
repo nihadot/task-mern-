@@ -191,12 +191,12 @@ function deleteCat(id, name) {
   } else {
   }
 }
-function deleteSubCat(id, name) {
+function deleteDeptHeads(id, name) {
   let cfm = confirm("Are you want to delete " + name);
   if (cfm) {
     $.ajax({
-      url: "/admin/delete-subcategory/",
-      method: "post",
+      url: "/admin/deleteDeptHeads/",
+      method: "delete",
       data: {
         id: id,
       },
@@ -215,6 +215,10 @@ function deleteSubCat(id, name) {
   }
 }
 
+const getDeptData =(id)=>{
+  console.log(id)
+  window.location.href=`/getDeptData/${id}`
+}
 const get =(route)=>{
   window.location.href=route
 }

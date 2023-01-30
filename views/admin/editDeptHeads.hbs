@@ -1,0 +1,56 @@
+<section class="mt-5">
+    <div class="container">
+        <div class="">
+            <a href="" class="text-dark text-decoration-none">
+                <h3>Create New Department Heads</h3>
+            </a>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+            <div class="">
+                <form action='/admin/editDepartmentHeads' method="post" enctype="multipart/form-data">
+                    <div class="row add-SubCatLeftUI  mt-4">
+                        <div class="col-12">
+                            <img class="m-4" src="/deptHeaders/{{Id}}.jpg" alt="" width="65px" height="50px" id="imgViewSubCat">
+                            <input type="file" class="form-control" name="image"
+                                onchange="viewImageSubCategory(event)" /> <br>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" placeholder="Name" class="form-control" name="DepartmentHeadsName" value="{{getDeptHeads.DepartmentHeadsName}}" /><br>
+                        </div>
+                         <div class="col-12">
+                            <input type="number" placeholder="Number" class="form-control" name="EmployeeNum" value="{{getDeptHeads.EmployeeNum}}" /><br>
+                        </div>
+                        <div class="col-12">
+                            <input type="number" placeholder="Age" class="form-control" name="Age" value="{{getDeptHeads.Age}}" /><br>
+                        </div>
+                         <div class="col-12">
+                            <input type="text" placeholder="Description" class="form-control" name="Description" value="{{getDeptHeads.Description}}" /><br>
+                        </div>
+                          <div class="col-12">
+                              {{!-- <input type="hidden"  name=""  > --}}
+                            <input type="hidden" placeholder="Description" class="form-control" name="_id" value="{{getDeptHeads._id}}" /><br>
+                        </div>
+                           <div class="col-12">
+                               <label for="">Choose Dept.</label>
+                               <select name="DeptChoosen" id="">
+                                   {{!-- {{#each deptName}} --}}
+                                   <option value="{{getDeptHeads.DeptChoosen}}">{{resp.DepartmentName}}</option>
+                                   {{!-- {{/each}} --}}
+                                   {{!-- <option value="">Nihad</option> --}}
+                               </select>
+                            {{!-- <input type="checkbox" placeholder="Description" class="form-control" name="Description" /> --}}
+                        </div>
+
+                      
+                        <div class="ml-3 Btn-ForCustomize margin-bottom-1rem">
+                            <div class="">
+                                <button type="submit" class="btn btn-success mt-3 wid-110">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="w-100  text-dark "> </div> {{!-- this designed class use this one ( addSubCat-RightPanel ) --}}
+        </div>
+    </div>
+</section>
